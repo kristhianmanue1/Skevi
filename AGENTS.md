@@ -54,6 +54,10 @@ Salida `OK` con el conteo de archivos verificados, o `BLOQ` enumerando cada
 incumplimiento con código de salida distinto de cero. Ejecútalo antes de
 declarar terminado cualquier cambio y registra su salida como evidencia.
 
+Si tu cambio toca `scripts/`, corre además `python3 -m unittest discover -s
+tests` y registra su salida. Todo script del repo con lógica no trivial
+lleva su test en `tests/`.
+
 ## Convenciones de edición
 
 - Markdown, español, líneas de ancho razonable (~80 columnas).
