@@ -76,6 +76,13 @@ Comprueba que existen los archivos canónicos, que no hay Markdown operativo
 suelto en la raíz y que ningún archivo de texto excede su límite. `OK` o
 `BLOQ` con código de salida distinto de cero.
 
+```bash
+python3 -m unittest discover -s tests
+```
+
+Corre la suite de `tests/` sobre `scripts/check_sizes.py` — el único
+artefacto ejecutable del proyecto.
+
 **Gate local, no GitHub Actions.** La cuenta que aloja este repositorio tiene
 minutos de CI limitados (se agotan rápido y se reinician mensualmente). Por
 eso el gate corre localmente, vía hook de Git (`scripts/hooks/`, instalado
