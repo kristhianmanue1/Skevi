@@ -11,7 +11,10 @@
 **Última verificación:** 2026-08-12, contra `codex-cli 0.147.0`, `opencode 1.18.16`,
 `tmux 3.6a`. Esta guía caduca cuando cambien flags o comportamiento de
 cualquiera de las tres herramientas; si al usarla algo no coincide, es señal
-de que necesita revalidarse, no de que el operador se equivocó.
+de que necesita revalidarse, no de que el operador se equivocó. Esta fecha
+no la comprueba ningún gate automatizado: es una declaración de buena fe que
+depende de que quien la lea la audite manualmente contra las versiones
+reales instaladas.
 
 ## 1. Propósito
 

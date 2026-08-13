@@ -1,9 +1,11 @@
 # Arquitectura propuesta — puntero
 
 > Este archivo nunca desarrolla arquitectura nueva aquí (norma:
-> `../../docs/estandar-diseno-software-github.md` §3.5). Es un índice hacia
-> los ADRs que F1 ya produjo. Si F1 todavía no corrió, dilo explícitamente
-> en vez de inventar una decisión que nadie tomó.
+> `../docs/estandar-diseno-software-github.md` §3.5 — ruta relativa a
+> `.skevi/`, su destino real una vez copiado; **no** a `plantillas/skevi/`
+> donde vive antes de copiarse). Es un índice hacia los ADRs que F1 ya
+> produjo. Si F1 todavía no corrió, dilo explícitamente en vez de inventar
+> una decisión que nadie tomó.
 
 **Estado:** <con ADRs | pendiente — F1 no se ha ejecutado>
 
