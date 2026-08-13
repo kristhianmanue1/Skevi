@@ -7,7 +7,11 @@
 **Dependencias conceptuales:** ADRC, sesiones persistentes, revisión adversarial y evidencia ejecutable  
 **Dependencias de runtime:** ninguna respecto de Escrubery o Epistates  
 **Material operativo:** `orquestacion-codex-opencode-tmux-runbook.md` (recuperación, fallas comunes, prompts base, checklist de adopción)  
-**Ronda adversarial de esta guía:** `../historia/orquestacion-codex-opencode-tmux-adversarial.md`
+**Ronda adversarial de esta guía:** `../historia/orquestacion-codex-opencode-tmux-adversarial.md`  
+**Última verificación:** 2026-08-12, contra `codex-cli 0.147.0`, `opencode 1.18.16`,
+`tmux 3.6a`. Esta guía caduca cuando cambien flags o comportamiento de
+cualquiera de las tres herramientas; si al usarla algo no coincide, es señal
+de que necesita revalidarse, no de que el operador se equivocó.
 
 ## 1. Propósito
 

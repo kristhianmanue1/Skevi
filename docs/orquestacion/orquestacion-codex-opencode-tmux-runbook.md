@@ -10,6 +10,10 @@ Este archivo no contiene reglas nuevas: es la parte copiable y consultable del
 protocolo, separada para que ninguno de los dos exceda el límite de tamaño y
 ambos puedan leerse completos de una vez.
 
+**Última verificación:** 2026-08-12, contra `codex-cli 0.147.0`,
+`opencode 1.18.16`, `tmux 3.6a`. Comparte fecha con el protocolo asociado;
+revalidar ambos juntos.
+
 ## 1. Recuperación de sesiones
 
 ### Codex sigue vivo

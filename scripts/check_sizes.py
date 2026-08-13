@@ -24,6 +24,9 @@ REQUIRED = {
     "docs/guia-agentes-ia/03-cascaron-proyecto.md",
     "docs/guia-agentes-ia/04-ejecucion-y-verificacion.md",
     "scripts/check_sizes.py",
+    "plantillas/registro-contexto.md",
+    "plantillas/skevi/usage-guide.md",
+    "plantillas/skevi/architecture-overview.md",
 }
 SKIP_DIRS = {
     ".an-kla",
@@ -64,6 +67,17 @@ LIMITS = {
     "README.md": 300,
 }
 DEFAULT_LIMIT = 800
+TEMPLATE_PREFIX = "plantillas/"
+TEMPLATE_LIMIT = 300
+
+
+def limit_for(name: str) -> int:
+    if name in LIMITS:
+        return LIMITS[name]
+    if name.startswith(TEMPLATE_PREFIX):
+        return TEMPLATE_LIMIT
+    return DEFAULT_LIMIT
+
 
 REGISTRY_START_RE = re.compile(r"^<!--\s*skevi:registry:start\s*-->$", re.IGNORECASE)
 REGISTRY_END_RE = re.compile(r"^<!--\s*skevi:registry:end\s*-->$", re.IGNORECASE)
@@ -181,7 +195,7 @@ def main() -> int:
         if observed is None:
             continue
         name = relative.as_posix()
-        limit = LIMITS.get(name, DEFAULT_LIMIT)
+        limit = limit_for(name)
         rows.append((name, observed, limit))
         if observed > limit:
             failures.append(f"{name}: {observed} líneas > límite {limit}")

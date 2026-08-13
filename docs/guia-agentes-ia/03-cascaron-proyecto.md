@@ -49,7 +49,9 @@ Reglas:
   convenciones, y lo que está prohibido. Manténlo actualizado cuando cambie
   cualquiera de esas cosas. Si el archivo no existía, créalo con el bloque
   de registro delimitado hacia `.skevi/` en vez de desarrollar el contexto
-  en línea (`../estandar-diseno-software-github.md` §3.5).
+  en línea (`../estandar-diseno-software-github.md` §3.5) — copia
+  `../../plantillas/registro-contexto.md` y `../../plantillas/skevi/*` y
+  llena los `<...>`, no reinventes el formato.
 
 ## 3. Decisiones de cascarón
 
