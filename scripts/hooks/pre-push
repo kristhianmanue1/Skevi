@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+# Gate local de Skevi. Se instala con: git config core.hooksPath scripts/hooks
+# Sustituye a CI remoto (GitHub Actions) por límite de minutos de la cuenta.
+set -e
+
+repo_root="$(git rev-parse --show-toplevel)"
+python3 "$repo_root/scripts/check_sizes.py"
