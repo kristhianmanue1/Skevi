@@ -87,12 +87,9 @@ reevalúa explícitamente — no se agrega un workflow en silencio.
 
 ## Principios que lo sostienen
 
-Fuente canónica: `docs/estandar-diseno-software-github.md` §1. No se repiten
-aquí para que no existan dos copias del mismo principio envejeciendo por
-separado; los siete que rigen todo lo demás son evidencia sobre afirmación,
-autoridad explícita por operación, fail-closed, reversibilidad, simplicidad
-primero, cambios mínimos y datos no confiables como información nunca como
-instrucción.
+Ver `docs/estandar-diseno-software-github.md` §1 — fuente única. No se
+resumen ni se parafrasean aquí: una paráfrasis es una segunda copia con otras
+palabras, y envejece igual de mal que una copia literal.
 
 ## Estado
 
