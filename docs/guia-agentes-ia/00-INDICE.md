@@ -30,7 +30,15 @@
    fronteras externas sí. La regla: cada artefacto que crees debe responder
    a una incertidumbre o riesgo real, no a una plantilla.
 4. **Sin generalidad especulativa.** No crees abstracciones, configuración ni
-   estructura para requisitos que nadie pidió.
+   estructura para requisitos que nadie pidió. Las reglas 3 y 4 limitan
+   **alcance** (features, configurabilidad, generalización) — nunca
+   corrección o seguridad de lo que ya está en alcance. Manejo de errores
+   esperables, condiciones de carrera evidentes para el diseño elegido, o
+   validar datos no confiables de un requisito ya aceptado no es "de más":
+   es la implementación completa de lo prometido, no una extensión
+   especulativa (procedencia: `docs/historia/piloto-skopos.md` F4 — este
+   par de reglas se usó para justificar omitir exactamente esas tres
+   cosas en un componente que persistía datos reales).
 5. **Evidencia o no pasó.** Cada afirmación sobre el estado del proyecto
    ("compila", "pasan los tests", "está limpio") debe venir de un comando
    ejecutado y su resultado real.

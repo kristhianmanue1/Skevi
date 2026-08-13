@@ -5,9 +5,9 @@ mantienen proyectos. Dos capas: un **estándar** atemporal e independiente de
 herramientas, y una **guía por fases** escrita para que la ejecute un agente.
 
 **Nombre.** Del griego σκεύη (*skeví*, plural de σκεῦος/*skevos*: vasija,
-utensilio, instrumento) — un conjunto de herramientas, no una sola. También
-se lee como forma corta de Παρασκευή (*Paraskeví*, "preparación"): la fase F0
-de la guía es, literalmente, eso.
+utensilio, instrumento, equipamiento, arnés, aparejo) — un conjunto de
+herramientas, no una sola. También se lee como forma corta de Παρασκευή
+(*Paraskeví*, "preparación"): la fase F0 de la guía es, literalmente, eso.
 
 **Audiencia primaria.** Este corpus está escrito para que lo ejecute un
 agente de IA, no para que lo lea un humano de principio a fin. `AGENTS.md`

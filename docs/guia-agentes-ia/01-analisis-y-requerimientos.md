@@ -85,7 +85,15 @@ F0 está cerrado sólo cuando se cumple todo:
 - [ ] restricciones de entorno confirmadas (lenguaje, runtime, dependencias
       disponibles de verdad en el entorno);
 - [ ] preguntas abiertas respondidas o respondidas con decisión del humano;
-- [ ] ningún requisito `imprescindible` sin criterio de aceptación.
+- [ ] ningún requisito `imprescindible` sin criterio de aceptación;
+- [ ] si un requisito depende de un formato de datos externo citado como
+      evidencia, esa evidencia incluye al menos un ejemplo real completo
+      de ese formato — no sólo metadatos o categorías observadas —, o
+      queda registrado como PREGUNTA-* explícita a confirmar antes de que
+      F1 lo use para diseñar (procedencia: `docs/historia/piloto-skopos.md`
+      F1 — F0 registró qué tipos de evento existían en un formato externo
+      real pero no su forma exacta; F1 diseñó sobre un esquema que
+      resultó falso, y el error no se detectó hasta F2).
 
 ## 4. Preguntas abiertas y cuándo detenerse
 

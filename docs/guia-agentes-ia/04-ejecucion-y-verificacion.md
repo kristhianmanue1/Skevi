@@ -109,8 +109,23 @@ proceed | fix-and-retry | escalate
   "ya está bien".
 - `escalate` cuando el hallazgo exige decisión del humano o salir del
   alcance: no lo resuelvas improvisando autoridad.
-- Rigor según el cambio: cotidiano, una ronda propia honesta basta; cambio
-  crítico o release, contexto fresco real y preferiblemente otro modelo.
+- **Cuándo es obligatorio el contexto fresco real** (subagente o sesión
+  nueva, preferiblemente otro modelo) en vez de una ronda propia: cuando
+  el cambio cumple **cualquiera** de estas condiciones — no es una
+  decisión de "sensación de cotidiano" (procedencia:
+  `docs/historia/piloto-skopos.md` F3 — ese criterio subjetivo se aplicó
+  mal cuatro veces seguidas sobre el mismo tipo de componente, cerrando
+  como `OK` una inyección de prompt explotable y una condición de carrera
+  real):
+  1. el componente persiste datos de un usuario real o de terceros;
+  2. el componente consume salida de un LLM y actúa sobre ella (la
+     persiste, la ejecuta, la reenvía) sin revisión humana intermedia;
+  3. el componente puede ejecutarse con concurrencia (dos instancias, dos
+     procesos, una reentrada);
+  4. el componente expone una interfaz a un consumidor no controlado por
+     el mismo autor.
+
+  Si ninguna aplica, una ronda propia honesta basta.
 
 ### 5.4 Cómo se ve una ronda que sí cuenta
 
@@ -146,6 +161,8 @@ Al cerrar una tarea, reporta así:
 ```text
 TAREA <id>: <OK | PARCIAL | BLOQ>
 DoD: <cumplido / qué falta>
+Rama de este cierre: <nombre> | main (si main, justifícalo — ver §4.1
+  del estándar: "sin remoto" no es justificación válida por sí sola)
 Evidencia:
 - <comando> → <resultado real>
 Hallazgos fuera de alcance: <lista o "ninguno">
@@ -185,6 +202,13 @@ para "dejarlo limpio".
 - [ ] tests focales y suite en verde, con evidencia;
 - [ ] diff mínimo, leído completo, sin sorpresas;
 - [ ] docs y comentarios coherentes con el código;
+- [ ] si la tarea toca un componente con CONTRATO (02 §4), cada campo de
+      entrada/salida declarado existe literalmente en la firma o esquema
+      real del código — verificado leyendo o grepeando el código ahora,
+      no de memoria de cuando se escribió el contrato (procedencia:
+      `docs/historia/piloto-skopos.md` F5 — un contrato prometió una
+      interfaz nunca implementada y nada lo detectó hasta una ronda
+      adversarial ajena);
 - [ ] ronda adversarial ejecutada con decisión `proceed` o `escalate`;
 - [ ] reporte de evidencia emitido con estado real;
 - [ ] cero operaciones de autoridad separada sin autorización.
