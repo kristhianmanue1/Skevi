@@ -247,7 +247,13 @@ límite.
 - Nombres de rama descriptivos con convención estable:
   `tipo/descripcion-corta` (por ejemplo `fix/login-expira`,
   `feat/export-csv`).
-- Nunca trabajar directo sobre la rama principal protegida.
+- Nunca trabajar directo sobre la rama principal protegida — la regla
+  aplica desde el primer commit del repositorio, exista o no un remoto
+  todavía. "Sin remoto" no es una excepción implícita: un proyecto nuevo
+  en `git init` local sigue exigiendo rama de trabajo (procedencia:
+  `docs/historia/piloto-skopos.md` F2 — sin esta aclaración, un ejecutor
+  reprodujo commits directos a `main` en el 100% de un piloto real por
+  no tener remoto todavía).
 - Antes de empezar, fijar y registrar: rama, commit base y estado limpio del
   árbol de trabajo (`git status` sin cambios inexplicados).
 
