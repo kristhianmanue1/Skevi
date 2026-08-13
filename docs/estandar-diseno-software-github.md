@@ -172,6 +172,72 @@ declarado en el README.
 registro de revisión que lo describa: sus conteos y referencias dejan de ser
 reproducibles y una evidencia que no se puede repetir deja de ser evidencia.
 
+### 3.5 Registro de contexto para ejecutores
+
+Un proyecto puede necesitar más de un archivo de instrucciones de
+herramienta a la vez: `AGENTS.md`, `CLAUDE.md`. Sin regla, cada uno termina
+con su propia copia del mismo contexto, y las copias se desincronizan. La
+regla: el contenido sustantivo vive en un solo lugar; los archivos de
+instrucciones de herramienta son punteros, no contenedores.
+
+**Alcance cerrado.** Esta regla aplica exactamente a `AGENTS.md` y
+`CLAUDE.md` — el mismo conjunto que valida el gate. Adoptar una herramienta
+nueva con su propio archivo de instrucciones es una decisión explícita que
+extiende a la vez la prosa de esta sección y la lista de hosts validados en
+`scripts/check_sizes.py`; no se generaliza por adelantado a "cualquier
+equivalente" sin que el gate pueda verificarlo.
+
+**Creación, no retrofit.** Si el proyecto no tiene `AGENTS.md` o
+`CLAUDE.md`, se crea con el bloque de registro (ver guía F2 §2); no
+desarrolla el contexto completo en línea. Un `AGENTS.md`/`CLAUDE.md` que ya
+existía con contenido propio **no** se reescribe a este patrón de forma
+automática: migrarlo es una decisión aparte, explícita, no un efecto
+colateral de tocar el archivo por otro motivo.
+
+**Formato del bloque.** Delimitadores fijos (el gate los reconoce
+insensible a mayúsculas y a espacios internos, pero exige exactamente uno de
+cada uno y en ese orden), sintaxis `ini` con claves en inglés descriptivas,
+comentarios con `;` o `#`, una sección `[skevi]` con al menos una entrada:
+
+```markdown
+<!-- skevi:registry:start -->
+[skevi]
+usage        = .skevi/usage-guide.md
+architecture = .skevi/architecture-overview.md
+standard     = docs/estandar-diseno-software-github.md
+guide        = docs/guia-agentes-ia/00-INDICE.md
+<!-- skevi:registry:end -->
+```
+
+El bloque no crece con el proyecto: agregar una fuente nueva es una línea
+más, nunca contenido prosificado. Regenerarlo reemplaza sólo lo que hay
+entre los delimitadores; el resto del archivo no se toca.
+
+**Orden de creación.** Los archivos de `.skevi/` referenciados se crean en
+el mismo paso que el bloque que los referencia, antes de correr el gate — no
+después. Un bloque que apunta a un archivo que todavía no existe es
+`BLOQ`, no un estado transitorio aceptable.
+
+**Contenido real.** Vive en `.skevi/` en la raíz del proyecto (directorio
+oculto, análogo a `.github/`: contexto de herramienta, no documentación de
+lectura humana casual). `.skevi/architecture-overview.md` nunca es contenido
+nuevo: es un puntero a los ADRs que F1 ya produjo (`docs/adr/`). Si F1 aún
+no los produjo, el archivo lo declara pendiente explícitamente; no inventa
+una arquitectura que nadie decidió.
+
+**Alcance del bloque.** Se inyecta sólo en archivos de instrucciones de
+ejecutor (`AGENTS.md`, `CLAUDE.md`). `README.md` no lo lleva: tiene su
+propia sección de estructura para quien adopta el método siendo humano, y
+ese público no necesita el registro técnico de links.
+
+**Verificación.** El gate de estructura y tamaños comprueba, cuando el
+bloque existe: delimitadores balanceados, sintaxis `ini` válida con al menos
+una entrada, y que cada ruta referenciada resuelva a un archivo real
+**dentro de la raíz del proyecto** — rutas absolutas o que escapan la raíz
+(`/etc/...`, `../../...`) son `BLOQ`, no una entrada verificada. Una ruta
+rota o fuera de la raíz es `BLOQ`, igual que un archivo que excede su
+límite.
+
 ## 4. Prácticas de Git
 
 ### 4.1 Ramas y aislamiento

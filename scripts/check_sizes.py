@@ -8,6 +8,7 @@ Markdown operativo suelto en la raíz.
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 
@@ -64,6 +65,74 @@ LIMITS = {
 }
 DEFAULT_LIMIT = 800
 
+REGISTRY_START_RE = re.compile(r"^<!--\s*skevi:registry:start\s*-->$", re.IGNORECASE)
+REGISTRY_END_RE = re.compile(r"^<!--\s*skevi:registry:end\s*-->$", re.IGNORECASE)
+REGISTRY_HOSTS = {"AGENTS.md", "CLAUDE.md"}
+
+
+def _resolve_registry_path(value: str) -> Path | None:
+    """Resuelve `value` contra ROOT; None si es absoluta o escapa de ROOT."""
+    if value.startswith("/") or value.startswith("~"):
+        return None
+    candidate = (ROOT / value).resolve()
+    try:
+        candidate.relative_to(ROOT.resolve())
+    except ValueError:
+        return None
+    return candidate
+
+
+def check_registry_block(relative: Path, text: str) -> list[str]:
+    """Valida el bloque delimitado de §3.5 si el archivo lo trae."""
+    if relative.name not in REGISTRY_HOSTS:
+        return []
+
+    lines = text.splitlines()
+    starts = [i for i, line in enumerate(lines) if REGISTRY_START_RE.match(line.strip())]
+    ends = [i for i, line in enumerate(lines) if REGISTRY_END_RE.match(line.strip())]
+
+    if not starts and not ends:
+        return []
+    if len(starts) != 1 or len(ends) != 1 or starts[0] >= ends[0]:
+        return [f"{relative}: bloque skevi:registry con delimitadores desbalanceados"]
+
+    failures: list[str] = []
+    raw_body = [line.strip() for line in lines[starts[0] + 1 : ends[0]] if line.strip()]
+    body = [line for line in raw_body if not line.startswith((";", "#"))]
+
+    if not body or body[0] != "[skevi]":
+        failures.append(f"{relative}: bloque skevi:registry sin sección [skevi]")
+        entries = body
+    else:
+        entries = body[1:]
+        if any(line == "[skevi]" for line in entries):
+            failures.append(f"{relative}: bloque skevi:registry con sección [skevi] duplicada")
+            entries = [line for line in entries if line != "[skevi]"]
+
+    if not entries:
+        failures.append(f"{relative}: bloque skevi:registry sin entradas")
+
+    for line in entries:
+        if "=" not in line:
+            failures.append(f"{relative}: línea de registro inválida: {line!r}")
+            continue
+        key, _, value = line.partition("=")
+        key, value = key.strip(), value.strip()
+        if not key or not value:
+            failures.append(f"{relative}: línea de registro inválida: {line!r}")
+            continue
+        target = _resolve_registry_path(value)
+        if target is None:
+            failures.append(
+                f"{relative}: skevi:registry.{key} usa ruta fuera de la raíz del "
+                f"proyecto: {value}"
+            )
+        elif not target.is_file():
+            failures.append(
+                f"{relative}: skevi:registry.{key} apunta a ruta inexistente: {value}"
+            )
+    return failures
+
 
 def discover() -> list[Path]:
     paths: list[Path] = []
@@ -116,6 +185,9 @@ def main() -> int:
         rows.append((name, observed, limit))
         if observed > limit:
             failures.append(f"{name}: {observed} líneas > límite {limit}")
+        if relative.name in REGISTRY_HOSTS:
+            text = (ROOT / relative).read_text(encoding="utf-8")
+            failures.extend(check_registry_block(relative, text))
 
     if failures:
         print("BLOQ — check_sizes encontró incumplimientos")
