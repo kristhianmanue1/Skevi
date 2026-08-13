@@ -95,6 +95,11 @@ reevalúa explícitamente — no se agrega un workflow en silencio.
 
 ## Estado
 
-Documentación en uso. `docs/historia/` conserva los registros del piloto que
-originó estas reglas, incluida la ronda adversarial que corrigió el protocolo
-de orquestación. Ese material es evidencia de procedencia, no norma vigente.
+**Alpha.** El estándar y la guía pueden cambiar sin aviso previo; ninguna
+fase F0→F3 corrió todavía de punta a punta sobre un proyecto real, y el gate
+sólo se verifica localmente (sin CI remoto). Sube a versión estable cuando
+exista un piloto F0→F3 completo con evidencia.
+
+`docs/historia/` conserva los registros del piloto que originó estas reglas,
+incluida la ronda adversarial que corrigió el protocolo de orquestación. Ese
+material es evidencia de procedencia, no norma vigente.
