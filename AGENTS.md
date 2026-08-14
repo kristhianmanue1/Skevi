@@ -6,7 +6,7 @@ que crea o mantiene proyectos. No contiene código de aplicación.
 
 ## Qué leer y en qué orden
 
-1. `docs/guia-agentes-ia/00-INDICE.md` — **empieza aquí siempre**. Define las
+1. `docs/ai-agent-guide/00-INDICE.md` — **empieza aquí siempre**. Define las
    fases F0→F3, las reglas de aplicación obligatorias y el formato de reporte.
 2. El archivo de la fase en la que estés (`01`…`04` de esa misma carpeta).
 3. `docs/estandar-diseno-software-github.md` — capa normativa transversal.
@@ -20,10 +20,10 @@ ventana de lectura, léelo por tramos hasta el final antes de modificarlo.
 1. instrucción directa del humano en la conversación;
 2. este `AGENTS.md`;
 3. `docs/estandar-diseno-software-github.md`;
-4. `docs/guia-agentes-ia/`;
+4. `docs/ai-agent-guide/`;
 5. tus supuestos — siempre pierden. Si el supuesto es material, pregunta.
 
-`docs/historia/` es registro histórico, **no normativo**: se cita como
+`docs/history/` es registro histórico, **no normativo**: se cita como
 evidencia de dónde salió una regla, nunca como fuente de autoridad. Sus enlaces
 internos pueden apuntar a repositorios ajenos y no resolver aquí.
 
@@ -42,7 +42,7 @@ internos pueden apuntar a repositorios ajenos y no resolver aquí.
   `AGENTS.md` 200 líneas, `README.md` 300, plantillas 300, cualquier otro
   archivo de texto 800. Se comprueban con el gate, no a ojo.
 - **Ronda adversarial** antes de cerrar cualquier cambio material
-  (`docs/guia-agentes-ia/04-ejecucion-y-verificacion.md` §5).
+  (`docs/ai-agent-guide/04-ejecucion-y-verificacion.md` §5).
 
 ## Verificación
 

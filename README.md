@@ -11,7 +11,7 @@ herramientas, no una sola. También se lee como forma corta de Παρασκευ�
 
 **Audiencia primaria.** Este corpus está escrito para que lo ejecute un
 agente de IA, no para que lo lea un humano de principio a fin. `AGENTS.md`
-y `docs/guia-agentes-ia/` asumen un ejecutor automatizado como lector. Las
+y `docs/ai-agent-guide/` asumen un ejecutor automatizado como lector. Las
 secciones de revisión existen para que una persona audite el resultado, no
 para que sea la vía principal de lectura.
 
@@ -25,20 +25,25 @@ Skevi/
 ├── AGENTS.md                  # punto de entrada para ejecutores automatizados
 ├── README.md
 ├── docs/
+│   ├── adr/                                  # decisiones estructurales inmutables
 │   ├── estandar-diseno-software-github.md   # capa normativa transversal
-│   ├── guia-agentes-ia/                     # pipeline F0→F3 para agentes
+│   ├── ai-agent-guide/                     # pipeline F0→F3 para agentes
 │   │   ├── 00-INDICE.md
 │   │   ├── 01-analisis-y-requerimientos.md
 │   │   ├── 02-specs-adr-contratos.md
 │   │   ├── 03-cascaron-proyecto.md
 │   │   └── 04-ejecucion-y-verificacion.md
-│   ├── orquestacion/                        # método concreto, acoplado a herramientas
+│   ├── orchestration/                        # método concreto, acoplado a herramientas
 │   │   ├── orquestacion-codex-opencode-tmux.md
 │   │   └── orquestacion-codex-opencode-tmux-runbook.md
-│   └── historia/                            # registro, no normativo
+│   ├── proposals/                           # cambios bajo deliberación, no normativos
+│   │   └── PROP-001-agent-native-model-improvements.md
+│   └── history/                            # registro, no normativo
 │       ├── orquestacion-codex-opencode-tmux-adversarial.md
+│       ├── piloto-autoaplicacion-skevi.md
+│       ├── piloto-skopos.md
 │       └── supervision-agente-externo.md
-├── plantillas/                 # formatos copiables, no se improvisan (§3.5)
+├── templates/                 # formatos copiables, no se improvisan (§3.5)
 │   ├── registro-contexto.md
 │   └── skevi/
 │       ├── usage-guide.md
@@ -48,15 +53,15 @@ Skevi/
 ```
 
 La separación no es estética: cada carpeta tiene una **vida útil distinta**.
-El estándar cambia poco, la guía cambia con la práctica, `orquestacion/`
-caduca cuando cambian las herramientas y `historia/` no debería cambiar nunca.
-Mezclarlas en un archivo obliga a revisar lo estable cada vez que se mueve lo
-volátil.
+El estándar cambia poco, la guía cambia con la práctica, `orchestration/`
+caduca cuando cambian las herramientas, `proposals/` vive mientras se delibera
+un cambio y `history/` no debería cambiar nunca. Mezclarlas en un archivo obliga
+a revisar lo estable cada vez que se mueve lo volátil.
 
 ## Cómo se usa
 
 **Un agente que empieza un proyecto** lee `AGENTS.md`, luego
-`docs/guia-agentes-ia/00-INDICE.md`, y avanza por fases: análisis (F0) →
+`docs/ai-agent-guide/00-INDICE.md`, y avanza por fases: análisis (F0) →
 specs/ADRs/contratos (F1) → cascarón (F2) → ejecución y verificación (F3).
 Cada fase tiene un gate que se cierra con evidencia, no con una declaración.
 
@@ -105,6 +110,6 @@ fase F0→F3 corrió todavía de punta a punta sobre un proyecto real, y el gate
 sólo se verifica localmente (sin CI remoto). Sube a versión estable cuando
 exista un piloto F0→F3 completo con evidencia.
 
-`docs/historia/` conserva los registros del piloto que originó estas reglas,
+`docs/history/` conserva los registros del piloto que originó estas reglas,
 incluida la ronda adversarial que corrigió el protocolo de orquestación. Ese
 material es evidencia de procedencia, no norma vigente.

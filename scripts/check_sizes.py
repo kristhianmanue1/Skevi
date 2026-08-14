@@ -18,15 +18,15 @@ REQUIRED = {
     "AGENTS.md",
     "README.md",
     "docs/estandar-diseno-software-github.md",
-    "docs/guia-agentes-ia/00-INDICE.md",
-    "docs/guia-agentes-ia/01-analisis-y-requerimientos.md",
-    "docs/guia-agentes-ia/02-specs-adr-contratos.md",
-    "docs/guia-agentes-ia/03-cascaron-proyecto.md",
-    "docs/guia-agentes-ia/04-ejecucion-y-verificacion.md",
+    "docs/ai-agent-guide/00-INDICE.md",
+    "docs/ai-agent-guide/01-analisis-y-requerimientos.md",
+    "docs/ai-agent-guide/02-specs-adr-contratos.md",
+    "docs/ai-agent-guide/03-cascaron-proyecto.md",
+    "docs/ai-agent-guide/04-ejecucion-y-verificacion.md",
     "scripts/check_sizes.py",
-    "plantillas/registro-contexto.md",
-    "plantillas/skevi/usage-guide.md",
-    "plantillas/skevi/architecture-overview.md",
+    "templates/registro-contexto.md",
+    "templates/skevi/usage-guide.md",
+    "templates/skevi/architecture-overview.md",
 }
 SKIP_DIRS = {
     ".an-kla",
@@ -67,7 +67,7 @@ LIMITS = {
     "README.md": 300,
 }
 DEFAULT_LIMIT = 800
-TEMPLATE_PREFIX = "plantillas/"
+TEMPLATE_PREFIX = "templates/"
 TEMPLATE_LIMIT = 300
 
 

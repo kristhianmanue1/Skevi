@@ -113,7 +113,7 @@ proceed | fix-and-retry | escalate
   nueva, preferiblemente otro modelo) en vez de una ronda propia: cuando
   el cambio cumple **cualquiera** de estas condiciones — no es una
   decisión de "sensación de cotidiano" (procedencia:
-  `docs/historia/piloto-skopos.md` F3 — ese criterio subjetivo se aplicó
+  `docs/history/piloto-skopos.md` F3 — ese criterio subjetivo se aplicó
   mal cuatro veces seguidas sobre el mismo tipo de componente, cerrando
   como `OK` una inyección de prompt explotable y una condición de carrera
   real):
@@ -206,7 +206,7 @@ para "dejarlo limpio".
       entrada/salida declarado existe literalmente en la firma o esquema
       real del código — verificado leyendo o grepeando el código ahora,
       no de memoria de cuando se escribió el contrato (procedencia:
-      `docs/historia/piloto-skopos.md` F5 — un contrato prometió una
+      `docs/history/piloto-skopos.md` F5 — un contrato prometió una
       interfaz nunca implementada y nada lo detectó hasta una ronda
       adversarial ajena);
 - [ ] ronda adversarial ejecutada con decisión `proceed` o `escalate`;

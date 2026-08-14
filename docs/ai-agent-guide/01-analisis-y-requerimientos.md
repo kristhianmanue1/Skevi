@@ -90,7 +90,7 @@ F0 está cerrado sólo cuando se cumple todo:
       evidencia, esa evidencia incluye al menos un ejemplo real completo
       de ese formato — no sólo metadatos o categorías observadas —, o
       queda registrado como PREGUNTA-* explícita a confirmar antes de que
-      F1 lo use para diseñar (procedencia: `docs/historia/piloto-skopos.md`
+      F1 lo use para diseñar (procedencia: `docs/history/piloto-skopos.md`
       F1 — F0 registró qué tipos de evento existían en un formato externo
       real pero no su forma exacta; F1 diseñó sobre un esquema que
       resultó falso, y el error no se detectó hasta F2).

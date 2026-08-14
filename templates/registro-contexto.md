@@ -13,7 +13,7 @@
 usage        = .skevi/usage-guide.md
 architecture = .skevi/architecture-overview.md
 standard     = docs/estandar-diseno-software-github.md
-guide        = docs/guia-agentes-ia/00-INDICE.md
+guide        = docs/ai-agent-guide/00-INDICE.md
 <!-- skevi:registry:end -->
 ```
 
