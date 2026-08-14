@@ -205,7 +205,7 @@ comentarios con `;` o `#`, una sección `[skevi]` con al menos una entrada:
 usage        = .skevi/usage-guide.md
 architecture = .skevi/architecture-overview.md
 standard     = docs/estandar-diseno-software-github.md
-guide        = docs/guia-agentes-ia/00-INDICE.md
+guide        = docs/ai-agent-guide/00-INDICE.md
 <!-- skevi:registry:end -->
 ```
 
@@ -251,7 +251,7 @@ límite.
   aplica desde el primer commit del repositorio, exista o no un remoto
   todavía. "Sin remoto" no es una excepción implícita: un proyecto nuevo
   en `git init` local sigue exigiendo rama de trabajo (procedencia:
-  `docs/historia/piloto-skopos.md` F2 — sin esta aclaración, un ejecutor
+  `docs/history/piloto-skopos.md` F2 — sin esta aclaración, un ejecutor
   reprodujo commits directos a `main` en el 100% de un piloto real por
   no tener remoto todavía).
 - Antes de empezar, fijar y registrar: rama, commit base y estado limpio del

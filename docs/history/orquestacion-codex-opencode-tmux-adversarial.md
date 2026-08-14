@@ -2,10 +2,10 @@
 
 **Fecha:** 2026-08-12  
 **Alcance:** corrección operativa, no burocracia de seguridad  
-**Documento revisado:** `../orquestacion/orquestacion-codex-opencode-tmux.md`  
+**Documento revisado:** `../orchestration/orquestacion-codex-opencode-tmux.md`
 **Nota de vigencia (2026-08-12):** el documento creció después de esta ronda y
-más tarde se partió en `../orquestacion/orquestacion-codex-opencode-tmux.md`
-(protocolo) y `../orquestacion/orquestacion-codex-opencode-tmux-runbook.md`
+más tarde se partió en `../orchestration/orquestacion-codex-opencode-tmux.md`
+(protocolo) y `../orchestration/orquestacion-codex-opencode-tmux-runbook.md`
 (recuperación, fallas comunes,
 prompts base y checklist de adopción), para respetar el límite de 800 líneas.
 Los conteos de líneas y de delimitadores citados abajo corresponden al estado

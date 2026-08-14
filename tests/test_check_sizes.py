@@ -21,7 +21,7 @@ _SPEC.loader.exec_module(check_sizes)
 
 class LimitForTests(unittest.TestCase):
     def test_default_limit(self):
-        self.assertEqual(check_sizes.limit_for("docs/historia/foo.md"), 800)
+        self.assertEqual(check_sizes.limit_for("docs/history/foo.md"), 800)
 
     def test_agents_md_limit(self):
         self.assertEqual(check_sizes.limit_for("AGENTS.md"), 200)
@@ -30,7 +30,7 @@ class LimitForTests(unittest.TestCase):
         self.assertEqual(check_sizes.limit_for("README.md"), 300)
 
     def test_template_limit(self):
-        self.assertEqual(check_sizes.limit_for("plantillas/skevi/x.md"), 300)
+        self.assertEqual(check_sizes.limit_for("templates/skevi/x.md"), 300)
 
 
 class RegistryBlockTests(unittest.TestCase):

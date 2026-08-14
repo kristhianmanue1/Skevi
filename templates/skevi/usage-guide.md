@@ -11,7 +11,7 @@
 
 1. `AGENTS.md` (o `CLAUDE.md`) en la raíz — punto de entrada, trae el
    bloque de registro que enlaza a este archivo.
-2. `docs/guia-agentes-ia/00-INDICE.md` — fases F0→F3 y reglas de aplicación.
+2. `docs/ai-agent-guide/00-INDICE.md` — fases F0→F3 y reglas de aplicación.
 3. `docs/estandar-diseno-software-github.md` — capa normativa transversal.
 
 ## Desviaciones de este proyecto respecto al estándar por defecto

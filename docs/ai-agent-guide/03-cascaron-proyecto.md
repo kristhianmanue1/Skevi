@@ -50,7 +50,7 @@ Reglas:
   cualquiera de esas cosas. Si el archivo no existía, créalo con el bloque
   de registro delimitado hacia `.skevi/` en vez de desarrollar el contexto
   en línea (`../estandar-diseno-software-github.md` §3.5) — copia
-  `../../plantillas/registro-contexto.md` y `../../plantillas/skevi/*` y
+  `../../templates/registro-contexto.md` y `../../templates/skevi/*` y
   llena los `<...>`, no reinventes el formato.
 
 ## 3. Decisiones de cascarón

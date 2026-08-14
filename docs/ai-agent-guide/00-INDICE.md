@@ -36,7 +36,7 @@
    esperables, condiciones de carrera evidentes para el diseño elegido, o
    validar datos no confiables de un requisito ya aceptado no es "de más":
    es la implementación completa de lo prometido, no una extensión
-   especulativa (procedencia: `docs/historia/piloto-skopos.md` F4 — este
+   especulativa (procedencia: `docs/history/piloto-skopos.md` F4 — este
    par de reglas se usó para justificar omitir exactamente esas tres
    cosas en un componente que persistía datos reales).
 5. **Evidencia o no pasó.** Cada afirmación sobre el estado del proyecto
