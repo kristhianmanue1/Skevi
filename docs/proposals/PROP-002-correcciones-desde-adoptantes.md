@@ -1,6 +1,8 @@
 # PROP-002 — Correcciones al método desde la evidencia de los adoptantes
 
-> **Estado:** borrador en revisión; propuesta no normativa.
+> **Estado:** parcialmente aceptada y congelada el 2026-08-15; propuesta no
+> normativa. La decisión por iniciativa vive en
+> [`PROP-002-decision-2026-08-15.md`](PROP-002-decision-2026-08-15.md).
 > **Audiencia:** agentes de IA que crean o mantienen software con Skevi.
 > **Decisión requerida:** aceptar, rechazar o dividir las iniciativas A-1…A-9, y
 > ratificar el retiro de nueve iniciativas de PROP-001.
