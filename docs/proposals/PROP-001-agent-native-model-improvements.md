@@ -1,6 +1,8 @@
 # PROP-001 — Mejoras del modelo agent-native
 
-> **Estado:** borrador en revisión; propuesta no normativa.
+> **Estado:** parcialmente aceptada y congelada el 2026-08-15; propuesta no
+> normativa. La decisión por iniciativa vive en
+> [`PROP-001-decision-2026-08-15.md`](PROP-001-decision-2026-08-15.md).
 > **Audiencia:** agentes de IA que crean o mantienen software.
 > **Decisión requerida:** aceptar, rechazar o dividir las iniciativas antes de
 > incorporarlas a un plan de implementación y, cuando corresponda, a la norma.

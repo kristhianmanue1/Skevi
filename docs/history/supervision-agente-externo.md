@@ -3,10 +3,12 @@
 > **Nota de vigencia (2026-08-12):** documento histórico. Se conserva como
 > registro del piloto que originó la capa normativa
 > (`../estandar-diseno-software-github.md`). No es normativo: ante conflicto,
-> mandan el estándar y la guía. Sus enlaces internos (`practicas-ingenieria.md`,
-> `planning/...`) apuntan al checkout de otro repositorio y **no resuelven
-> aquí**. Su §4.4 aparece sin §4.1–4.3: hueco de edición conocido, no corregido
-> por decisión de conservar el original.
+> mandan el estándar y la guía. Sus referencias a `practicas-ingenieria.md`,
+> `agent-report-template.md` y `planning/...` pertenecen al repositorio
+> `an-kla-memory`, donde nació el piloto; aquí se enlazan por URL absoluta y su
+> contenido puede haber cambiado desde la fecha de corte. Su §4.4 aparece sin
+> §4.1–4.3: hueco de edición conocido, no corregido por decisión de conservar el
+> original.
 
 > **Estado:** experimental, validado mediante un piloto read-only
 > **Fecha de corte:** 2026-08-11
@@ -82,12 +84,13 @@ Se adaptaron estas prácticas de Escrubery:
 Las fuentes locales concretas fueron `AGENTS.md`,
 `docs/politica-agentes.md` y `docs/plantillas-agente.md` del checkout de
 Escrubery. Este documento no importa sus reglas como autoridad: las usa como
-evidencia de un método y las subordina a `AGENTS.md`,  y
-[`practicas-ingenieria.md`](practicas-ingenieria.md) de este repositorio.
+evidencia de un método y las subordina a `AGENTS.md` y a
+[`practicas-ingenieria.md`](https://github.com/kristhianmanue1/an-kla-memory/blob/main/docs/practicas-ingenieria.md)
+de `an-kla-memory`, que era el repositorio del piloto.
 
 La integración opcional de atestación basada en Escrubery es otro problema y
 permanece separada en
-[`fase-8-escrubery-attestation-2026-08-09.md`](planning/fase-8-escrubery-attestation-2026-08-09.md).
+[`fase-8-escrubery-attestation-2026-08-09.md`](https://github.com/kristhianmanue1/an-kla-memory/blob/main/docs/planning/fase-8-escrubery-attestation-2026-08-09.md).
 
 
 
@@ -548,13 +551,13 @@ piloto.
 
 - [Escrubery](https://github.com/kristhianmanue1/escrubery) — procedencia del
   marco ADRC y de las prácticas de trabajo agent-native.
-- [`practicas-ingenieria.md`](practicas-ingenieria.md) — gates vigentes de
+- [`practicas-ingenieria.md`](https://github.com/kristhianmanue1/an-kla-memory/blob/main/docs/practicas-ingenieria.md) — gates vigentes de
   AN-KLA Memory.
-- [`agent-report-template.md`](agent-report-template.md) — reporte RAG con
+- [`agent-report-template.md`](https://github.com/kristhianmanue1/an-kla-memory/blob/main/docs/agent-report-template.md) — reporte RAG con
   evidencia.
-- [`plan-ejecucion-backlog-agentes-2026-08-11.md`](planning/plan-ejecucion-backlog-agentes-2026-08-11.md)
+- [`plan-ejecucion-backlog-agentes-2026-08-11.md`](https://github.com/kristhianmanue1/an-kla-memory/blob/main/docs/planning/plan-ejecucion-backlog-agentes-2026-08-11.md)
   — Definition of Ready, permisos y secuenciación del backlog.
-- [`plan-ejecucion-backlog-agentes-adversarial-2026-08-11.md`](planning/plan-ejecucion-backlog-agentes-adversarial-2026-08-11.md)
+- [`plan-ejecucion-backlog-agentes-adversarial-2026-08-11.md`](https://github.com/kristhianmanue1/an-kla-memory/blob/main/docs/planning/plan-ejecucion-backlog-agentes-adversarial-2026-08-11.md)
   — hallazgos que endurecieron la coordinación multiagente.
 - [Changelog oficial de ChatGPT y Codex](https://learn.chatgpt.com/docs/changelog)
   — capacidad documentada de automatizaciones que reactivan la misma tarea.
