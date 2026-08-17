@@ -82,6 +82,11 @@ duda, el principio gana sobre la regla concreta.
 
 - Validar toda entrada en la frontera, contra un esquema cerrado: se acepta
   lo conocido, se rechaza todo lo demás.
+- Validar implica fallar controlado: una entrada inválida en la frontera
+  produce un mensaje con el campo y el motivo, nunca la excepción cruda del
+  lenguaje. Un stack trace no es un mensaje de error — es una fuga de
+  implementación, y puede llevar rutas absolutas (procedencia:
+  `docs/adr/ADR-007-frontera-valida-implica-fallo-controlado.md`).
 - Nunca concatenar datos no confiables dentro de comandos, consultas o
   plantillas ejecutables; usar parametrización o mecanismos literales.
 - Privilegio mínimo: cada componente opera con los permisos estrictamente
