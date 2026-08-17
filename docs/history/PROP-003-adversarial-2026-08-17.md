@@ -97,3 +97,26 @@ Es la tercera ronda consecutiva con contexto fresco que devuelve
 es del tipo más difícil de ver desde dentro: la propuesta usaba un principio
 —hogar canónico único— como argumento contra otros, y lo incumplía en su propia
 solución.
+
+## Adenda — reducción posterior del artefacto (2026-08-17)
+
+Después de cerrar esta ronda apareció `pinax`, el catálogo del ecosistema, con
+un contrato versionado —`pinax/project-manifest/v1`— cuyos campos `ofrece`,
+`no_ofrece`, `consume`, `fronteras_de_confianza` y `pospuesto` expresan de forma
+validable la frontera que esta propuesta escribía en prosa.
+
+PROP-003 se redujo entonces a lo que ningún manifiesto puede resolver: los dos
+conflictos normativos. La frontera pasó a `project-manifest.yaml`.
+
+Esto no invalida la ronda: sus cinco hallazgos siguen cerrados y el BLOCKER
+—usar el principio de hogar canónico único como argumento y a la vez
+incumplirlo— se resolvió por la vía más limpia posible, que es no tener dos
+fuentes en absoluto.
+
+Vale la pena registrar el patrón, porque es el tercero de la misma familia en
+esta sesión: **el ecosistema ya tenía resuelto lo que Skevi estaba a punto de
+escribir**. Primero `praxis-dev` con la autoridad y la revisión proporcional,
+después `argos` con el plano de evidencia, ahora `pinax` con la declaración de
+fronteras. En los tres casos la causa fue la misma: proponer sin haber
+inventariado el ecosistema. Que es, literalmente, la razón por la que `pinax`
+existe.
