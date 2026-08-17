@@ -183,6 +183,7 @@ class ConfigTests(unittest.TestCase):
         self._orig_exempt_paths = set(check_sizes.EXEMPT_PATHS)
         self._orig_required = set(check_sizes.REQUIRED)
         self._orig_skip_dirs = set(check_sizes.SKIP_DIRS)
+        self._orig_root_markdown = set(check_sizes.ROOT_MARKDOWN)
 
     def tearDown(self):
         check_sizes.ROOT = self._orig_root
@@ -195,6 +196,8 @@ class ConfigTests(unittest.TestCase):
         check_sizes.REQUIRED.update(self._orig_required)
         check_sizes.SKIP_DIRS.clear()
         check_sizes.SKIP_DIRS.update(self._orig_skip_dirs)
+        check_sizes.ROOT_MARKDOWN.clear()
+        check_sizes.ROOT_MARKDOWN.update(self._orig_root_markdown)
 
     def _write_config(self, data):
         (self.root / check_sizes.CONFIG_NAME).write_text(
@@ -243,9 +246,63 @@ class ConfigTests(unittest.TestCase):
         self.assertEqual(check_sizes.REQUIRED, set())
 
     def test_skip_dirs_merge_onto_skevi_defaults(self):
-        check_sizes.apply_config({"skip_dirs": {"coverage"}})
+        check_sizes.apply_config({"skip_dirs": ["coverage"]})
         self.assertIn("coverage", check_sizes.SKIP_DIRS)
         self.assertIn(".git", check_sizes.SKIP_DIRS)
+
+    # --- Hallazgos de la ronda adversarial con contexto fresco (2026-08-17) ---
+
+    def test_required_rejects_absolute_path(self):
+        """Sin esto, `(ROOT / relative).is_file()` resuelve fuera de ROOT y
+        un `required` puede darse por cumplido con un archivo del host."""
+        with self.assertRaisesRegex(ValueError, "ruta inválida"):
+            check_sizes.apply_config({"required": ["/etc/passwd"]})
+
+    def test_required_rejects_path_escaping_root(self):
+        with self.assertRaisesRegex(ValueError, "ruta inválida"):
+            check_sizes.apply_config({"required": ["../../etc/passwd"]})
+
+    def test_exempt_paths_rejects_absolute_path(self):
+        with self.assertRaisesRegex(ValueError, "ruta inválida"):
+            check_sizes.apply_config({"exempt_paths": ["/etc/passwd"]})
+
+    def test_limits_with_non_integer_value_raises_value_error(self):
+        """No una excepción cruda de Python: main() sólo atrapa ValueError."""
+        with self.assertRaises(ValueError):
+            check_sizes.apply_config({"limits": ["no", "dict"]})
+        with self.assertRaises(ValueError):
+            check_sizes.apply_config({"limits": {"AGENTS.md": "cincuenta"}})
+
+    def test_limits_rejects_boolean_as_integer(self):
+        """bool es subclase de int en Python; True/False no son un límite."""
+        with self.assertRaises(ValueError):
+            check_sizes.apply_config({"limits": {"AGENTS.md": True}})
+
+    def test_default_limit_with_wrong_type_raises_value_error(self):
+        with self.assertRaises(ValueError):
+            check_sizes.apply_config({"default_limit": "ochocientas"})
+        with self.assertRaises(ValueError):
+            check_sizes.apply_config({"default_limit": [800]})
+
+    def test_skip_dirs_rejects_non_string_list(self):
+        with self.assertRaises(ValueError):
+            check_sizes.apply_config({"skip_dirs": "coverage"})
+
+    def test_root_markdown_is_additive(self):
+        """CONTRIBUTING.md/SECURITY.md en la raíz de un adoptante real
+        (an-kla-memory) no deben leerse como Markdown suelto."""
+        check_sizes.apply_config({"root_markdown": ["CONTRIBUTING.md"]})
+        self.assertIn("CONTRIBUTING.md", check_sizes.ROOT_MARKDOWN)
+        self.assertIn("README.md", check_sizes.ROOT_MARKDOWN)
+
+    def test_reset_to_skevi_defaults_undoes_a_previous_config(self):
+        """Dos invocaciones de main() en el mismo proceso no acumulan
+        configuración: la segunda no hereda lo que declaró la primera."""
+        check_sizes.apply_config({"required": [], "root_markdown": ["X.md"]})
+        self.assertEqual(check_sizes.REQUIRED, set())
+        check_sizes.reset_to_skevi_defaults()
+        self.assertEqual(check_sizes.REQUIRED, self._orig_required)
+        self.assertEqual(check_sizes.ROOT_MARKDOWN, self._orig_root_markdown)
 
     def test_main_uses_adopter_config_end_to_end(self):
         """Un proyecto con otra estructura pasa el gate sin los archivos de Skevi."""
@@ -267,6 +324,53 @@ class ConfigTests(unittest.TestCase):
             exit_code = check_sizes.main()
         self.assertEqual(exit_code, 1)
         self.assertIn("BLOQ", buf.getvalue())
+
+    def test_main_never_leaks_a_raw_traceback_on_malformed_config(self):
+        """Reproduce el ataque de la ronda adversarial: limits con una lista
+        en vez de un objeto no debe escapar como AttributeError crudo."""
+        self._write_config({"limits": ["no", "dict"]})
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            exit_code = check_sizes.main()
+        self.assertEqual(exit_code, 1)
+        self.assertIn("BLOQ", buf.getvalue())
+        self.assertNotIn("Traceback", buf.getvalue())
+
+    def test_main_end_to_end_an_kla_memory_style_project(self):
+        """El caso real que motiva ADR-006: otra estructura de directorios y
+        Markdown de gobierno de proyecto adicional en la raíz."""
+        self._write_config({
+            "required": ["README.md", "docs/architecture/0001-foo.md"],
+            "root_markdown": ["CONTRIBUTING.md", "SECURITY.md"],
+        })
+        (self.root / "docs" / "architecture").mkdir(parents=True)
+        (self.root / "README.md").write_text("# proyecto\n", encoding="utf-8")
+        (self.root / "docs" / "architecture" / "0001-foo.md").write_text(
+            "# ADR\n", encoding="utf-8"
+        )
+        (self.root / "CONTRIBUTING.md").write_text("# contribuir\n", encoding="utf-8")
+        (self.root / "SECURITY.md").write_text("# seguridad\n", encoding="utf-8")
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            exit_code = check_sizes.main()
+        self.assertEqual(exit_code, 0)
+        self.assertIn("OK —", buf.getvalue())
+
+    def test_main_twice_in_same_process_does_not_leak_state(self):
+        """Confirma en main(), no sólo en apply_config, que no hay
+        acumulación entre invocaciones consecutivas."""
+        self._write_config({"required": []})
+        buf1 = io.StringIO()
+        with redirect_stdout(buf1):
+            exit_code1 = check_sizes.main()
+        self.assertEqual(exit_code1, 0)
+
+        (self.root / check_sizes.CONFIG_NAME).unlink()
+        buf2 = io.StringIO()
+        with redirect_stdout(buf2):
+            exit_code2 = check_sizes.main()
+        self.assertEqual(exit_code2, 1)
+        self.assertIn("falta archivo requerido: AGENTS.md", buf2.getvalue())
 
 
 if __name__ == "__main__":
