@@ -4,10 +4,15 @@
 La polaridad es cerrada: todo archivo de texto queda sujeto a un límite salvo
 una exención explícita. También falla si falta un archivo canónico o aparece
 Markdown operativo suelto en la raíz.
+
+Copiable sin edición a un proyecto adoptante: si su estructura de archivos
+canónicos, límites o exenciones difiere de la de Skevi, declara
+`skevi-gate.json` en la raíz en vez de editar este script (ADR-006).
 """
 
 from __future__ import annotations
 
+import json
 import re
 from pathlib import Path
 
@@ -69,6 +74,57 @@ LIMITS = {
 DEFAULT_LIMIT = 800
 TEMPLATE_PREFIX = "templates/"
 TEMPLATE_LIMIT = 300
+
+# Configuración del proyecto adoptante. Los valores de arriba son los de Skevi
+# sobre sí mismo; un proyecto que adopta el gate declara los suyos aquí, por
+# escrito, conforme a §3.4 del estándar: heredar el valor por defecto sin
+# decidirlo es aceptable, cambiarlo en silencio no lo es.
+CONFIG_NAME = "skevi-gate.json"
+CONFIG_KEYS = {"limits", "default_limit", "exempt_paths", "required", "skip_dirs"}
+
+
+def load_config() -> dict:
+    """Lee `skevi-gate.json` de la raíz si existe. Ausente = valores de Skevi.
+
+    Polaridad cerrada: una clave desconocida falla en vez de ignorarse, para
+    que un error de escritura sea detectable y no silencioso.
+    """
+    path = ROOT / CONFIG_NAME
+    if not path.is_file():
+        return {}
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        raise ValueError(f"{CONFIG_NAME}: la raíz debe ser un objeto")
+    unknown = sorted(set(data) - CONFIG_KEYS)
+    if unknown:
+        raise ValueError(f"{CONFIG_NAME}: claves desconocidas: {', '.join(unknown)}")
+    return data
+
+
+def apply_config(config: dict) -> None:
+    """Aplica la configuración del proyecto sobre los valores de Skevi.
+
+    Dos semánticas distintas, a propósito. `limits`, `exempt_paths` y
+    `skip_dirs` se **añaden** a los de Skevi: un proyecto que declara un
+    límite propio no pierde los de `AGENTS.md`/`README.md`, y una exención no
+    borra las que ya existían. `required` en cambio **reemplaza**: la lista de
+    archivos canónicos de Skevi (`docs/estandar-diseno-software-github.md`,
+    la guía en inglés, las plantillas) sólo tiene sentido dentro de este
+    repositorio; un proyecto adoptante con otra estructura de directorios —
+    como `an-kla-memory`, que usa `docs/architecture/`— declara la suya.
+    """
+    global DEFAULT_LIMIT
+    if "limits" in config:
+        LIMITS.update({str(k): int(v) for k, v in config["limits"].items()})
+    if "default_limit" in config:
+        DEFAULT_LIMIT = int(config["default_limit"])
+    if "exempt_paths" in config:
+        EXEMPT_PATHS.update(str(p) for p in config["exempt_paths"])
+    if "required" in config:
+        REQUIRED.clear()
+        REQUIRED.update(str(p) for p in config["required"])
+    if "skip_dirs" in config:
+        SKIP_DIRS.update(str(d) for d in config["skip_dirs"])
 
 
 def limit_for(name: str) -> int:
@@ -174,6 +230,13 @@ def count_text_lines(relative: Path) -> int | None:
 
 def main() -> int:
     failures: list[str] = []
+
+    try:
+        apply_config(load_config())
+    except (ValueError, OSError) as exc:
+        print("BLOQ — check_sizes no pudo leer la configuración del proyecto")
+        print(f"- {exc}")
+        return 1
 
     for relative in sorted(REQUIRED):
         if not (ROOT / relative).is_file():

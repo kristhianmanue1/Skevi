@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import importlib.util
 import io
+import json
 import sys
 import tempfile
 import unittest
@@ -163,6 +164,109 @@ class MainIntegrationTests(unittest.TestCase):
         )
         exit_code, _ = self._run_main()
         self.assertEqual(exit_code, 0)
+
+
+class ConfigTests(unittest.TestCase):
+    """`skevi-gate.json` — gate configurable por proyecto adoptante (A-6)."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.root = Path(self.tmp.name)
+        self._orig_root = check_sizes.ROOT
+        check_sizes.ROOT = self.root
+        # apply_config muta estado de módulo in situ; sin restaurarlo, un test
+        # de esta clase corrompería LimitForTests o MainIntegrationTests
+        # ejecutados después en el mismo proceso.
+        self._orig_limits = dict(check_sizes.LIMITS)
+        self._orig_default_limit = check_sizes.DEFAULT_LIMIT
+        self._orig_exempt_paths = set(check_sizes.EXEMPT_PATHS)
+        self._orig_required = set(check_sizes.REQUIRED)
+        self._orig_skip_dirs = set(check_sizes.SKIP_DIRS)
+
+    def tearDown(self):
+        check_sizes.ROOT = self._orig_root
+        check_sizes.LIMITS.clear()
+        check_sizes.LIMITS.update(self._orig_limits)
+        check_sizes.DEFAULT_LIMIT = self._orig_default_limit
+        check_sizes.EXEMPT_PATHS.clear()
+        check_sizes.EXEMPT_PATHS.update(self._orig_exempt_paths)
+        check_sizes.REQUIRED.clear()
+        check_sizes.REQUIRED.update(self._orig_required)
+        check_sizes.SKIP_DIRS.clear()
+        check_sizes.SKIP_DIRS.update(self._orig_skip_dirs)
+
+    def _write_config(self, data):
+        (self.root / check_sizes.CONFIG_NAME).write_text(
+            json.dumps(data), encoding="utf-8"
+        )
+
+    def test_absent_config_returns_empty_dict(self):
+        self.assertEqual(check_sizes.load_config(), {})
+
+    def test_config_with_unknown_key_raises(self):
+        self._write_config({"limites": {"AGENTS.md": 50}})
+        with self.assertRaises(ValueError):
+            check_sizes.load_config()
+
+    def test_config_root_must_be_object(self):
+        self._write_config([1, 2, 3])
+        with self.assertRaises(ValueError):
+            check_sizes.load_config()
+
+    def test_limits_merge_onto_skevi_defaults(self):
+        check_sizes.apply_config({"limits": {"docs/mio.md": 50}})
+        self.assertEqual(check_sizes.limit_for("docs/mio.md"), 50)
+        # AGENTS.md conserva su límite de Skevi: limits se añade, no reemplaza.
+        self.assertEqual(check_sizes.limit_for("AGENTS.md"), 200)
+
+    def test_default_limit_is_overridable(self):
+        check_sizes.apply_config({"default_limit": 400})
+        self.assertEqual(check_sizes.limit_for("docs/cualquiera.md"), 400)
+
+    def test_exempt_paths_merge(self):
+        check_sizes.apply_config({"exempt_paths": ["docs/congelado.md"]})
+        self.assertIsNone(
+            check_sizes.count_text_lines(Path("docs/congelado.md"))
+        )
+
+    def test_required_replaces_skevi_list(self):
+        """Un adoptante con otra estructura no hereda los archivos de Skevi."""
+        check_sizes.apply_config({"required": ["docs/architecture/README.md"]})
+        self.assertEqual(check_sizes.REQUIRED, {"docs/architecture/README.md"})
+        self.assertNotIn(
+            "docs/estandar-diseno-software-github.md", check_sizes.REQUIRED
+        )
+
+    def test_required_can_be_declared_empty(self):
+        check_sizes.apply_config({"required": []})
+        self.assertEqual(check_sizes.REQUIRED, set())
+
+    def test_skip_dirs_merge_onto_skevi_defaults(self):
+        check_sizes.apply_config({"skip_dirs": {"coverage"}})
+        self.assertIn("coverage", check_sizes.SKIP_DIRS)
+        self.assertIn(".git", check_sizes.SKIP_DIRS)
+
+    def test_main_uses_adopter_config_end_to_end(self):
+        """Un proyecto con otra estructura pasa el gate sin los archivos de Skevi."""
+        self._write_config({
+            "required": ["README.md"],
+            "limits": {"README.md": 5},
+        })
+        (self.root / "README.md").write_text("una linea\n", encoding="utf-8")
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            exit_code = check_sizes.main()
+        self.assertEqual(exit_code, 0)
+        self.assertIn("OK —", buf.getvalue())
+
+    def test_main_fails_closed_on_malformed_config(self):
+        self._write_config({"desconocida": 1})
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            exit_code = check_sizes.main()
+        self.assertEqual(exit_code, 1)
+        self.assertIn("BLOQ", buf.getvalue())
 
 
 if __name__ == "__main__":

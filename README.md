@@ -76,7 +76,11 @@ Cada fase tiene un gate que se cierra con evidencia, no con una declaración.
 estándar (§7) y el formato de ronda adversarial de la guía (`04` §5).
 
 **Un proyecto que adopta el método** copia el estándar y la guía, fija sus
-propios límites de tamaño por escrito, e instala el gate en su CI.
+propios límites de tamaño por escrito, e instala el gate en su CI. Si su
+estructura de directorios difiere de la de Skevi — otros nombres de ADR,
+guía o plantillas, o ninguno de ellos —, declara `skevi-gate.json` en su raíz
+en vez de editar `scripts/check_sizes.py`: el script se copia sin
+modificación (ADR-006).
 
 ## Verificación
 
