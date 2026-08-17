@@ -38,7 +38,8 @@ Reglas:
 - Los casos DADO/CUANDO/ENTONCES se traducirán a tests en F3. Si un caso no
   puede convertirse en test, está mal escrito.
 - Los errores son parte de la spec, no un apéndice. Define qué estado queda
-  tras cada fallo (fail-closed: estado seguro, nunca éxito inferido).
+  tras cada fallo, aplicando el principio 5 de
+  `../estandar-diseno-software-github.md` §1.
 
 ## 3. ADR — registro de decisiones
 
