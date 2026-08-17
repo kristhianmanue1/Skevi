@@ -63,7 +63,8 @@ Reglas:
 5. comentarios/docs actualizados al nuevo comportamiento;
 6. DoD de la tarea cumplido punto por punto.
 
-Si un paso falla, el estado es `PARCIAL` o `BLOQ`, nunca `OK`.
+Si un paso no queda `pass`, deriva el estado como indica `00-INDICE.md`
+§ «Formato de reporte de fase»; nunca declares `OK`.
 
 ## 5. Ronda adversarial (obligatoria antes de cerrar)
 
@@ -94,7 +95,7 @@ actitud positiva: es intentar demostrar que está mal.
 - [LOW]     <problema> — <evidencia> — <seguimiento opcional>
 
 ## Verificaciones
-- <comando> → <resultado real>
+- <comando> → <resultado real> [pass | fail | inconclusive]
 
 ## Decisión
 proceed | fix-and-retry | escalate
@@ -164,15 +165,16 @@ DoD: <cumplido / qué falta>
 Rama de este cierre: <nombre> | main (si main, justifícalo — ver §4.1
   del estándar: "sin remoto" no es justificación válida por sí sola)
 Evidencia:
-- <comando> → <resultado real>
+- <comando> → <resultado real> [pass | fail | inconclusive]
 Hallazgos fuera de alcance: <lista o "ninguno">
 ```
 
 - La evidencia son comandos ejecutados y sus resultados reales. "Debería
-  pasar" y "lo he revisado mentalmente" no son evidencia.
+  pasar" y "lo he revisado mentalmente" no son evidencia. Cada línea marca su
+  resultado como define `00-INDICE.md` § «Formato de reporte de fase».
 - Si el formato del reporte importa, cúmplelo exactamente: el cumplimiento
   semántico no equivale al cumplimiento exacto.
-- Reporta los fallos con la misma precisión que los éxitos. Un `BLOQ`
+- Reporta `fail` e `inconclusive` con la misma precisión que `pass`. Un `BLOQ`
   honesto vale más que un `OK` inflado: el humano decide sobre datos reales.
 
 ## 7. Operaciones con autoridad separada
