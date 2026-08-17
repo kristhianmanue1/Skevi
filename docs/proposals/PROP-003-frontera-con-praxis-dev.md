@@ -63,14 +63,25 @@ advisory puede degradarse a `development-unverified` **sin bloquear trabajo
 ordinario**, declarando que esa excepción de ergonomía no satisface una
 transición protegida ni habilita promoción estable.
 
-**Por qué importa:** un ejecutor que lea ambos puede invocar la excepción de
-Praxis para justificar continuar donde Skevi manda detenerse. El fallo mejor
-documentado del método es precisamente que, ante dos niveles de rigor, el
-ejecutor elige el bajo — 4 de 4 veces en el piloto Skopos.
+**Precisión tras leer el texto completo.** El primer párrafo de esa misma
+cláusula ya cuelga el bloqueo de la **clase de operación**, no de la fase:
+*"para seguridad, publicación, políticas y decisiones aceptadas, `unknown`
+bloquea"*. La excepción es por tanto estrecha y está acotada. El eje de Praxis
+Dev es correcto, y más fino que el de Skevi, que sólo tiene un principio
+absoluto sin gradación.
 
-**Opciones:** Skevi incorpora la excepción con su alcance exacto; o Praxis Dev
-la restringe; o se declara que aplican a planos distintos y se dice cuál manda
-cuando coinciden.
+**Qué queda entonces del conflicto:** la excepción se apoya en el término
+`trabajo ordinario`, que aparece cinco veces en el corpus de Praxis Dev y no se
+define en ninguna. Es la misma forma que el `cotidiano vs crítico` de Skevi que
+el piloto Skopos demostró que un ejecutor resuelve a su favor — 4 de 4 veces.
+Reportado en `praxis-dev#16`; su resolución es de ese proyecto.
+
+**Lo que decide Skevi**, con independencia de eso: si mantiene el fail-closed
+como absoluto —regla simple, coste alto: cuando parar sale demasiado caro, el
+operador humano acaba autorizando en bloque, que es menos seguro que una
+excepción acotada— o si adopta una gradación equivalente por clase de
+operación, sin excepción posible para seguridad, publicación, datos de terceros
+e irreversibles, y siempre emitida como degradación declarada con su razón.
 
 ### 3.2 Dos vocabularios de resultado
 
@@ -83,9 +94,17 @@ mejor —separa no cumplir de no poder comprobar— y coincide con lo que el
 diagnóstico de arranque de AN-KLA acabó necesitando: `not_evaluated` distinto de
 `failed`.
 
-**Opciones:** Skevi adopta el vocabulario de Praxis; se declara un mapeo
-explícito; o cada uno conserva el suyo en su plano y el mapeo vive en el
-adaptador.
+**Precisión tras leer las definiciones.** No son dos vocabularios para lo mismo.
+Skevi reporta **estado del trabajo** —`OK` gate cumplido con evidencia,
+`PARCIAL` avance real al que falta un criterio, `BLOQ` no se puede continuar sin
+decisión o permiso—. Praxis reporta **resultado de una comprobación**. Son ejes
+distintos, y por eso no hay que elegir entre ellos.
+
+**Lo que decide Skevi:** si cada línea de evidencia declara su propio resultado
+con `inconclusive` incluido, y el estado de fase se deriva de esas líneas. Es
+aditivo: los tres estados actuales sobreviven, `alubia` y `emd` no se rompen, y
+entra la única distinción que hoy falta — "no cumple" frente a "no se pudo
+medir"—, con la regla que la hace útil: **`inconclusive` nunca cierra un gate**.
 
 ### 3.3 Lo que resultó no ser un conflicto
 
