@@ -52,8 +52,10 @@ internos pueden apuntar a repositorios ajenos y no resolver aquí.
 - **Contención de tamaño.** Límites del proyecto (§3.4 del estándar):
   `AGENTS.md` 200 líneas, `README.md` 300, plantillas 300, cualquier otro
   archivo de texto 800. Se comprueban con el gate, no a ojo.
-- **Ronda adversarial** antes de cerrar cualquier cambio material
-  (`docs/ai-agent-guide/04-ejecucion-y-verificacion.md` §5).
+- **Ronda adversarial** antes de cerrar cualquier cambio material — los
+  disparadores objetivos que definen "material" para esta regla están en
+  `docs/ai-agent-guide/04-ejecucion-y-verificacion.md` §5.3, no en la
+  sensación de "cotidiano vs crítico" (ADR-008).
 
 ## Verificación
 

@@ -35,8 +35,8 @@ Reglas:
 - Sin placeholders: cada cambio se entrega completo. `// resto igual`,
   funciones vacías y `TODO` sin dueño son entrega a medias.
 - No uses una librería por famosa: confirma que el proyecto ya depende de
-  ella (manifiesto/imports) o justifica su adición como decisión (ADR si es
-  material).
+  ella (manifiesto/imports) o justifica su adición como decisión — ADR si
+  cumple el criterio de `02-specs-adr-contratos.md` §3.1.
 - Comentarios y docstrings describen el comportamiento actual. Si cambias
   comportamiento, actualiza lo que lo describe; un comentario obsoleto es un
   bug de documentación.
@@ -106,18 +106,17 @@ proceed | fix-and-retry | escalate
 - `BLOCKER` y `HIGH` se corrigen siempre antes de entregar. `MED` se corrige
   o se justifica por escrito. `LOW` puede quedar como seguimiento.
 - Tras corregir un hallazgo, repite los checks afectados y la ronda si el
-  cambio fue material. El ciclo termina en `proceed` o `escalate`, nunca en
-  "ya está bien".
+  cambio fue material — mismos disparadores de abajo. El ciclo termina en
+  `proceed` o `escalate`, nunca en "ya está bien".
 - `escalate` cuando el hallazgo exige decisión del humano o salir del
   alcance: no lo resuelvas improvisando autoridad.
-- **Cuándo es obligatorio el contexto fresco real** (subagente o sesión
-  nueva, preferiblemente otro modelo) en vez de una ronda propia: cuando
-  el cambio cumple **cualquiera** de estas condiciones — no es una
-  decisión de "sensación de cotidiano" (procedencia:
+- **Disparadores objetivos de rigor.** "Material" en esta guía y en
+  `AGENTS.md` significa **cualquiera** de estas condiciones, nunca una
+  sensación de "cotidiano vs crítico" (procedencia:
   `docs/history/piloto-skopos.md` F3 — ese criterio subjetivo se aplicó
   mal cuatro veces seguidas sobre el mismo tipo de componente, cerrando
   como `OK` una inyección de prompt explotable y una condición de carrera
-  real):
+  real; ADR-008):
   1. el componente persiste datos de un usuario real o de terceros;
   2. el componente consume salida de un LLM y actúa sobre ella (la
      persiste, la ejecuta, la reenvía) sin revisión humana intermedia;
@@ -126,7 +125,9 @@ proceed | fix-and-retry | escalate
   4. el componente expone una interfaz a un consumidor no controlado por
      el mismo autor.
 
-  Si ninguna aplica, una ronda propia honesta basta.
+  Si alguna aplica, el contexto fresco real (subagente o sesión nueva,
+  preferiblemente otro modelo) es obligatorio en vez de una ronda propia. Si
+  ninguna aplica, una ronda propia honesta basta.
 
 ### 5.4 Cómo se ve una ronda que sí cuenta
 
