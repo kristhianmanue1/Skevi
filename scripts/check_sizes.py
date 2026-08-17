@@ -4,10 +4,15 @@
 La polaridad es cerrada: todo archivo de texto queda sujeto a un límite salvo
 una exención explícita. También falla si falta un archivo canónico o aparece
 Markdown operativo suelto en la raíz.
+
+Copiable sin edición a un proyecto adoptante: si su estructura de archivos
+canónicos, límites o exenciones difiere de la de Skevi, declara
+`skevi-gate.json` en la raíz en vez de editar este script (ADR-006).
 """
 
 from __future__ import annotations
 
+import json
 import re
 from pathlib import Path
 
@@ -69,6 +74,149 @@ LIMITS = {
 DEFAULT_LIMIT = 800
 TEMPLATE_PREFIX = "templates/"
 TEMPLATE_LIMIT = 300
+
+# Instantánea de los valores de Skevi, congelada al importar el módulo, antes
+# de que ninguna configuración de proyecto pueda tocarlos. `main()` restaura
+# desde aquí en cada invocación: si alguna vez se llama dos veces en el mismo
+# proceso (tests, un orquestador), la segunda no hereda la config de la
+# primera por acumulación silenciosa.
+_SKEVI_DEFAULTS = {
+    "ROOT_MARKDOWN": frozenset(ROOT_MARKDOWN),
+    "REQUIRED": frozenset(REQUIRED),
+    "SKIP_DIRS": frozenset(SKIP_DIRS),
+    "EXEMPT_PATHS": frozenset(EXEMPT_PATHS),
+    "LIMITS": dict(LIMITS),
+    "DEFAULT_LIMIT": DEFAULT_LIMIT,
+}
+
+
+def reset_to_skevi_defaults() -> None:
+    """Restaura el estado de módulo a los valores de Skevi, antes de leer
+    la configuración del proyecto. Ver `_SKEVI_DEFAULTS`."""
+    global DEFAULT_LIMIT
+    ROOT_MARKDOWN.clear()
+    ROOT_MARKDOWN.update(_SKEVI_DEFAULTS["ROOT_MARKDOWN"])
+    REQUIRED.clear()
+    REQUIRED.update(_SKEVI_DEFAULTS["REQUIRED"])
+    SKIP_DIRS.clear()
+    SKIP_DIRS.update(_SKEVI_DEFAULTS["SKIP_DIRS"])
+    EXEMPT_PATHS.clear()
+    EXEMPT_PATHS.update(_SKEVI_DEFAULTS["EXEMPT_PATHS"])
+    LIMITS.clear()
+    LIMITS.update(_SKEVI_DEFAULTS["LIMITS"])
+    DEFAULT_LIMIT = _SKEVI_DEFAULTS["DEFAULT_LIMIT"]
+
+
+# Configuración del proyecto adoptante. Los valores de arriba son los de Skevi
+# sobre sí mismo; un proyecto que adopta el gate declara los suyos aquí, por
+# escrito, conforme a §3.4 del estándar: heredar el valor por defecto sin
+# decidirlo es aceptable, cambiarlo en silencio no lo es.
+CONFIG_NAME = "skevi-gate.json"
+CONFIG_KEYS = {
+    "limits", "default_limit", "exempt_paths", "required", "skip_dirs",
+    "root_markdown",
+}
+
+
+def _resolve_project_path(value: object) -> Path | None:
+    """Resuelve `value` contra ROOT; None si no es texto, es absoluta,
+    empieza por `~` o escapa de ROOT. No exige que el archivo exista: los
+    elementos de `required` se declaran antes de comprobarse."""
+    if not isinstance(value, str) or value.startswith("/") or value.startswith("~"):
+        return None
+    candidate = (ROOT / value).resolve()
+    try:
+        candidate.relative_to(ROOT.resolve())
+    except ValueError:
+        return None
+    return candidate
+
+
+def _safe_relative_paths(field: str, values: object) -> list[str]:
+    """Valida una lista de rutas de `skevi-gate.json`: relativas, dentro de
+    ROOT. Rechaza absolutas y saltos hacia fuera (`../..`), con la misma
+    frontera que `_resolve_registry_path` aplica al bloque de registro."""
+    if not isinstance(values, list):
+        raise ValueError(f"{CONFIG_NAME}: «{field}» debe ser una lista de rutas")
+    safe: list[str] = []
+    for value in values:
+        if _resolve_project_path(value) is None:
+            raise ValueError(
+                f"{CONFIG_NAME}: «{field}» tiene una ruta inválida: {value!r} "
+                "(debe ser relativa a la raíz del proyecto)"
+            )
+        safe.append(value)
+    return safe
+
+
+def _string_list(field: str, values: object) -> list[str]:
+    if not isinstance(values, list) or not all(isinstance(v, str) for v in values):
+        raise ValueError(f"{CONFIG_NAME}: «{field}» debe ser una lista de texto")
+    return values
+
+
+def load_config() -> dict:
+    """Lee `skevi-gate.json` de la raíz si existe. Ausente = valores de Skevi.
+
+    Polaridad cerrada: una clave desconocida falla en vez de ignorarse, para
+    que un error de escritura sea detectable y no silencioso.
+    """
+    path = ROOT / CONFIG_NAME
+    if not path.is_file():
+        return {}
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        raise ValueError(f"{CONFIG_NAME}: la raíz debe ser un objeto")
+    unknown = sorted(set(data) - CONFIG_KEYS)
+    if unknown:
+        raise ValueError(f"{CONFIG_NAME}: claves desconocidas: {', '.join(unknown)}")
+    return data
+
+
+def apply_config(config: dict) -> None:
+    """Aplica la configuración del proyecto sobre los valores de Skevi.
+
+    Dos semánticas distintas, a propósito. `limits`, `exempt_paths`,
+    `skip_dirs` y `root_markdown` se **añaden** a los de Skevi: un proyecto
+    que declara un límite propio no pierde los de `AGENTS.md`/`README.md`, y
+    una exención no borra las que ya existían. `required` en cambio
+    **reemplaza**: la lista de archivos canónicos de Skevi
+    (`docs/estandar-diseno-software-github.md`, la guía en inglés, las
+    plantillas) sólo tiene sentido dentro de este repositorio; un proyecto
+    adoptante con otra estructura de directorios — como `an-kla-memory`, que
+    usa `docs/architecture/`— declara la suya.
+
+    Toda entrada mal tipada falla con `ValueError`, nunca con la excepción
+    cruda de Python: `main()` sólo sabe convertir `ValueError`/`OSError` en un
+    `BLOQ` legible, y un `TypeError` o `AttributeError` sin atrapar
+    reventaría con un stack trace, justo lo que este gate le reprocha al
+    resto del corpus no hacer.
+    """
+    global DEFAULT_LIMIT
+    if "limits" in config:
+        raw = config["limits"]
+        if not isinstance(raw, dict):
+            raise ValueError(f"{CONFIG_NAME}: «limits» debe ser un objeto")
+        for name, value in raw.items():
+            if not isinstance(value, int) or isinstance(value, bool):
+                raise ValueError(
+                    f"{CONFIG_NAME}: «limits.{name}» debe ser un entero"
+                )
+            LIMITS[str(name)] = value
+    if "default_limit" in config:
+        value = config["default_limit"]
+        if not isinstance(value, int) or isinstance(value, bool):
+            raise ValueError(f"{CONFIG_NAME}: «default_limit» debe ser un entero")
+        DEFAULT_LIMIT = value
+    if "exempt_paths" in config:
+        EXEMPT_PATHS.update(_safe_relative_paths("exempt_paths", config["exempt_paths"]))
+    if "required" in config:
+        REQUIRED.clear()
+        REQUIRED.update(_safe_relative_paths("required", config["required"]))
+    if "skip_dirs" in config:
+        SKIP_DIRS.update(_string_list("skip_dirs", config["skip_dirs"]))
+    if "root_markdown" in config:
+        ROOT_MARKDOWN.update(_string_list("root_markdown", config["root_markdown"]))
 
 
 def limit_for(name: str) -> int:
@@ -174,6 +322,14 @@ def count_text_lines(relative: Path) -> int | None:
 
 def main() -> int:
     failures: list[str] = []
+
+    try:
+        reset_to_skevi_defaults()
+        apply_config(load_config())
+    except (ValueError, OSError) as exc:
+        print("BLOQ — check_sizes no pudo leer la configuración del proyecto")
+        print(f"- {exc}")
+        return 1
 
     for relative in sorted(REQUIRED):
         if not (ROOT / relative).is_file():
