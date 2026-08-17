@@ -24,6 +24,7 @@ hospedaje tipo GitHub.
 Skevi/
 ├── AGENTS.md                  # punto de entrada para ejecutores automatizados
 ├── README.md
+├── project-manifest.yaml      # qué ofrece y qué NO ofrece, frente al ecosistema
 ├── docs/
 │   ├── adr/                                  # decisiones estructurales inmutables
 │   ├── estandar-diseno-software-github.md   # capa normativa transversal
@@ -37,8 +38,14 @@ Skevi/
 │   │   ├── orquestacion-codex-opencode-tmux.md
 │   │   └── orquestacion-codex-opencode-tmux-runbook.md
 │   ├── proposals/                           # cambios bajo deliberación, no normativos
-│   │   └── PROP-001-agent-native-model-improvements.md
+│   │   ├── PROP-001-agent-native-model-improvements.md
+│   │   ├── PROP-001-decision-2026-08-15.md
+│   │   ├── PROP-002-correcciones-desde-adoptantes.md
+│   │   ├── PROP-002-decision-2026-08-15.md
+│   │   └── PROP-003-frontera-con-praxis-dev.md
 │   └── history/                            # registro, no normativo
+│       ├── PROP-00N-adversarial-*.md        # rondas por propuesta
+│       ├── drift-checkpoint-an-kla-2026-08-15.md
 │       ├── orquestacion-codex-opencode-tmux-adversarial.md
 │       ├── piloto-autoaplicacion-skevi.md
 │       ├── piloto-skopos.md

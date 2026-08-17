@@ -15,6 +15,17 @@ que crea o mantiene proyectos. No contiene código de aplicación.
 No asumas el contenido de un archivo que no leíste. Si un documento excede tu
 ventana de lectura, léelo por tramos hasta el final antes de modificarlo.
 
+## Qué NO hace este repositorio
+
+`project-manifest.yaml` declara las fronteras de Skevi frente a los demás
+proyectos del ecosistema — sobre todo su campo `no_ofrece`. Léelo antes de
+concluir que a Skevi le falta algo: puede que esa capacidad exista y sea de
+otro proyecto, o que su ausencia sea deliberada.
+
+Es una autodeclaración: no es evidencia verificada ni autoridad. Y ninguna de
+las dependencias que enumera es obligatoria — Skevi funciona sin ninguna, y
+así debe seguir.
+
 ## Prioridad ante conflicto
 
 1. instrucción directa del humano en la conversación;
