@@ -118,7 +118,7 @@ Prohibido: responder preguntas materiales con supuestos silenciosos.
 Desde F0, conserva evidencia de todo lo que afirmes sobre el entorno:
 
 ```text
-EV-<n>: <afirmación> | <comando o fuente> → <resultado real>
+EV-<n>: <afirmación> | <comando o fuente> → <resultado real> [pass | fail | inconclusive]
 ```
 
 Ejemplos: versión del runtime, dependencias ya instaladas, estado del repo,
