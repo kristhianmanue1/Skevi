@@ -18,7 +18,7 @@ ofrece:
 no_ofrece:
   - "autoridad, conformidad ni perfiles de aseguramiento; ese plano es de praxis-dev"
   - "observación de corpus, extracción de evidencia ni claims; ese plano es de argos"
-  - "memoria ni continuidad entre sesiones; ese plano es de an-kla"
+  - "memoria ni continuidad entre sesiones; ese plano es de an-kla-memory"
   - "contrato de tarea ejecutable ni máquina de estados de auditoría; ese plano es de epistates"
   - "inteligencia sobre modelos y CLIs disponibles; ese plano es de escrubery"
   - "cualquier ejecutable propio: no instala, no observa y no muta un proyecto"
@@ -34,7 +34,7 @@ publica:
 consume:
   - { tipo: proyecto, id: argos, uso: "observación del corpus y evidencia con presupuesto; sin él, el análisis degrada a inventario propio y lo declara", requerido: false }
   - { tipo: proyecto, id: praxis-dev, uso: "gobernanza, autoridad y conformidad; solapamiento normativo declarado y pendiente de resolver", requerido: false }
-  - { tipo: proyecto, id: an-kla, uso: "continuidad entre sesiones en repos que la instalen; Skevi opera igual sin ella", requerido: false }
+  - { tipo: proyecto, id: an-kla-memory, uso: "continuidad entre sesiones en repos que la instalen; Skevi opera igual sin ella", requerido: false }
   - { tipo: externo, id: git, uso: "estado real del proyecto y evidencia de las prácticas que norma", requerido: true }
 
 fronteras_de_confianza:
