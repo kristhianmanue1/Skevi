@@ -1,7 +1,7 @@
 # Ronda adversarial — PROP-002
 
 **Fecha:** 2026-08-15
-**Artefacto:** [`../proposals/PROP-002-correcciones-desde-adoptantes.md`](../proposals/PROP-002-correcciones-desde-adoptantes.md)
+**Artefacto:** [`../history/PROP-002-correcciones-desde-adoptantes.md`](../history/PROP-002-correcciones-desde-adoptantes.md)
 **Alcance:** validez de la evidencia citada, solidez de cada iniciativa y
 cobertura de los retiros propuestos.
 **Revisor:** el mismo agente que redactó la propuesta.

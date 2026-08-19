@@ -1,7 +1,7 @@
 # ADR-006: gate configurable por proyecto adoptante
 
 Estado: aceptado; implementado en `scripts/check_sizes.py`. Resuelve la
-iniciativa A-6 diferida en `docs/proposals/PROP-002-decision-2026-08-15.md`.
+iniciativa A-6 diferida en `docs/history/PROP-002-decision-2026-08-15.md`.
 
 Contexto: `scripts/check_sizes.py` codifica dos cosas distintas en las mismas
 constantes: los valores que Skevi usa sobre sí mismo (`REQUIRED`, `LIMITS`,

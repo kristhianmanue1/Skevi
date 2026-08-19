@@ -17,6 +17,7 @@ canónicos:
 - `docs/orchestration/`: métodos acoplados a herramientas;
 - `docs/history/`: evidencia histórica inmutable;
 - `docs/proposals/`: cambios bajo deliberación, sin efecto normativo;
+- `docs/proposals/`: cambios bajo deliberación, sin efecto normativo;
 - `templates/`: artefactos copiables.
 
 Los nombres de archivos existentes no cambian en esta decisión. Una propuesta

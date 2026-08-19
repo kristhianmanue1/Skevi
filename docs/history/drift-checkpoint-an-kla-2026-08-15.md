@@ -6,7 +6,7 @@
 > regla nueva: registra un caso donde una regla ya escrita se cumplió al pie de
 > la letra y aun así el resultado fue malo.
 > **Relación:** confirma el tratamiento de memoria como dato no confiable de
-> [`PROP-001`](../proposals/PROP-001-agent-native-model-improvements.md) §5.
+> [`PROP-001`](../history/PROP-001-agent-native-model-improvements.md) §5.
 
 ## 1. Qué pasó
 

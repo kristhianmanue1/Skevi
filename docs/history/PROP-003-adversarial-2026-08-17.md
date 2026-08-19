@@ -1,7 +1,7 @@
 # Ronda adversarial — PROP-003
 
 **Fecha:** 2026-08-17
-**Artefacto:** [`../proposals/PROP-003-frontera-con-praxis-dev.md`](../proposals/PROP-003-frontera-con-praxis-dev.md)
+**Artefacto:** [`../history/PROP-003-frontera-con-praxis-dev.md`](../history/PROP-003-frontera-con-praxis-dev.md)
 **Revisor:** `agy` con `gemini-3.1-pro-high`
 **Contexto:** `fresco` — sesión y proveedor distintos del autor
 **Modelo:** `gemini-3.1-pro-high`
