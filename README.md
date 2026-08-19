@@ -21,7 +21,7 @@ hospedaje tipo GitHub.
 ## Estructura
 
 ```text
-Skevi/
+skevi/
 ├── AGENTS.md                  # punto de entrada para ejecutores automatizados
 ├── README.md
 ├── project-manifest.yaml      # qué ofrece y qué NO ofrece, frente al ecosistema
