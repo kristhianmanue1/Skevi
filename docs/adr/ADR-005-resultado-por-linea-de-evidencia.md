@@ -1,6 +1,6 @@
 # ADR-005: cada línea de evidencia declara su resultado
 
-Estado: aceptado; implementación no iniciada. Amplía el formato de reporte de
+Estado: aceptado; implementado en f46dcca. Amplía el formato de reporte de
 `docs/ai-agent-guide/00-INDICE.md` y de `04`, sin retirar los estados de fase.
 
 Contexto: Skevi reporta el **estado del trabajo** con tres valores —`OK` gate

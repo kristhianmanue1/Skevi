@@ -71,9 +71,9 @@ revisión → referencia a `04 §5.3`; dependencia nueva → referencia a `02 §
 supuesto o pendiente → contextual, sin referencia forzada).
 
 Procedencia: PROP-002 §A-8 (equivalente a P1-03 de PROP-001), aceptada en
-`docs/proposals/PROP-002-decision-2026-08-15.md`. Esa decisión reservó
+`docs/history/PROP-002-decision-2026-08-15.md`. Esa decisión reservó
 `ADR-005` para A-8, pero ese número lo ocupó después la decisión de los
-conflictos de PROP-003 (`docs/proposals/PROP-003-decision-2026-08-17.md`), sin
+conflictos de PROP-003 (`docs/history/PROP-003-decision-2026-08-17.md`), sin
 que nadie corrigiera la tabla original. A-1, A-7 y A-9 tienen la misma
 colisión y siguen sin ADR propio; quedan fuera de este cambio.
 `docs/history/piloto-skopos.md` F3 es la evidencia original de los cuatro

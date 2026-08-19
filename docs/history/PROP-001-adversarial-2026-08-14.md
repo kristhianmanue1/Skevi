@@ -1,7 +1,7 @@
 # Ronda adversarial — PROP-001
 
 **Fecha:** 2026-08-14
-**Artefacto:** `../proposals/PROP-001-agent-native-model-improvements.md`
+**Artefacto:** `../history/PROP-001-agent-native-model-improvements.md`
 **Alcance:** coherencia, autoridad, seguridad y verificabilidad de la propuesta;
 no evalúa una implementación todavía inexistente.
 **Revisor:** revisión propia con contexto acotado al artefacto y contratos

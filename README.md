@@ -21,7 +21,7 @@ hospedaje tipo GitHub.
 ## Estructura
 
 ```text
-Skevi/
+skevi/
 ├── AGENTS.md                  # punto de entrada para ejecutores automatizados
 ├── README.md
 ├── project-manifest.yaml      # qué ofrece y qué NO ofrece, frente al ecosistema
@@ -38,12 +38,13 @@ Skevi/
 │   │   ├── orquestacion-codex-opencode-tmux.md
 │   │   └── orquestacion-codex-opencode-tmux-runbook.md
 │   ├── proposals/                           # cambios bajo deliberación, no normativos
-│   │   ├── PROP-001-agent-native-model-improvements.md
-│   │   ├── PROP-001-decision-2026-08-15.md
-│   │   ├── PROP-002-correcciones-desde-adoptantes.md
-│   │   ├── PROP-002-decision-2026-08-15.md
-│   │   └── PROP-003-frontera-con-praxis-dev.md
 │   └── history/                            # registro, no normativo
+│       ├── PROP-001-agent-native-model-improvements.md
+│       ├── PROP-001-decision-2026-08-15.md
+│       ├── PROP-002-correcciones-desde-adoptantes.md
+│       ├── PROP-002-decision-2026-08-15.md
+│       ├── PROP-003-decision-2026-08-17.md
+│       ├── PROP-003-frontera-con-praxis-dev.md
 │       ├── PROP-00N-adversarial-*.md        # rondas por propuesta
 │       ├── drift-checkpoint-an-kla-2026-08-15.md
 │       ├── orquestacion-codex-opencode-tmux-adversarial.md
@@ -55,8 +56,10 @@ Skevi/
 │   └── skevi/
 │       ├── usage-guide.md
 │       └── architecture-overview.md
-└── scripts/
-    └── check_sizes.py         # gate de estructura y tamaños
+├── scripts/
+│   ├── check_sizes.py         # gate de estructura y tamaños
+│   └── hooks/                 # hooks de Git (pre-push)
+└── tests/                     # suite sobre scripts/check_sizes.py
 ```
 
 La separación no es estética: cada carpeta tiene una **vida útil distinta**.

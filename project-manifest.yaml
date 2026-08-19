@@ -48,8 +48,6 @@ fronteras_de_confianza:
 
 pospuesto:
   - procedimiento de entrada para proyectos ya iniciados; hoy la guía asume proyecto nuevo
-  - gate configurable por proyecto adoptante en vez de la estructura canónica de Skevi
-  - resolución del solapamiento normativo con praxis-dev y de dos conflictos declarados
   - capa de métodos de desarrollo adaptados a agentes, separada del estándar atemporal
   - perfiles por herramienta más allá de GitHub
   - clasificación de sensibilidad de datos
