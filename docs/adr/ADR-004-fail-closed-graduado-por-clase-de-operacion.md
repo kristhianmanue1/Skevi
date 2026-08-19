@@ -1,6 +1,6 @@
 # ADR-004: graduar el fail-closed por clase de operación
 
-Estado: aceptado; implementación no iniciada. Modifica el principio §1.5 del
+Estado: aceptado; implementado en f46dcca. Modifica el principio §1.5 del
 estándar, que hasta ahora era absoluto.
 
 Contexto: el principio 5 del estándar dice *"ante la incertidumbre, el sistema
