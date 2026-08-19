@@ -64,7 +64,35 @@ Consecuencias: <qué gana y qué pierde; qué queda prohibido u obligado>
 
 Reglas:
 
+Reglas:
+
 - Los ADR son inmutables: si la decisión cambia, se crea uno nuevo que
+  sustituye al anterior.
+- Una alternativa sin razón de descarte no cuenta; si no hay alternativas
+  reales, no había decisión que registrar.
+- Criterio de desempate (del estándar): más simple → más reversible → menor
+  superficie de seguridad → sin dependencias nuevas.
+
+### 3.3 Cierre de ADR
+
+Cuando un ADR pasa a estado `aceptado` y se implementa, el cambio que
+materializa la decisión **incluye la actualización del header** del ADR con
+el commit o versión de implementación. Un ADR que dice "implementación no
+iniciada" mientras un commit posterior ya lo aplicó es una deriva
+verificable: `BLOQ`.
+
+Checklist de cierre (obligatorio para ADRs que modifican norma o guía):
+
+- [ ] Header actualizado a `implementado` con referencia al commit o PR;
+- [ ] `docs/adr/00-INDICE.md` actualizado con fecha, origen e implementación;
+- [ ] `project-manifest.yaml` revisado si el ADR resuelve un ítem de
+      `pospuesto`;
+- [ ] Referencias cruzadas verificadas con `grep -r` sobre el repositorio;
+- [ ] Si procede de una propuesta, el material de deliberación se movió a
+      `docs/history/` en el mismo cambio.
+
+Un ADR sin cierre completo no cierra el gate de F1: la decisión existe, pero
+el rastro no.
   sustituye al anterior.
 - Una alternativa sin razón de descarte no cuenta; si no hay alternativas
   reales, no había decisión que registrar.

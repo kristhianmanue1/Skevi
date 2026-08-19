@@ -35,3 +35,10 @@ tema — el propio estándar y estilo del proyecto exigen no parafrasear, sólo
 referenciar la fuente única, así que esto no duplica contenido, sólo
 enlaces. Mover un documento entre carpetas por un cambio de expectativa de
 vida útil es una operación válida y esperada, no un error de organización.
+
+**Transición explícita.** Cuando una deliberación en `proposals/` se cierra
+(aceptada, rechazada, sustituida o aceptada parcialmente), su material
+(propuesta + decisión + rondas adversariales) se mueve a `history/` en el
+mismo cambio que el ADR o la norma que la materializa. Quedar en
+`proposals/` más de un gate después del cierre es `BLOQ`: la carpeta de
+deliberación abierta no es archivo de deliberación cerrada.
