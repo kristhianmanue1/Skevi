@@ -49,6 +49,7 @@ skevi/
 │       ├── drift-checkpoint-an-kla-2026-08-15.md
 │       ├── orquestacion-codex-opencode-tmux-adversarial.md
 │       ├── piloto-autoaplicacion-skevi.md
+│       ├── piloto-orbitanova.md
 │       ├── piloto-skopos.md
 │       └── supervision-agente-externo.md
 ├── templates/                 # formatos copiables, no se improvisan (§3.5)
