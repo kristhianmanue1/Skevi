@@ -115,8 +115,10 @@ def reset_to_skevi_defaults() -> None:
 CONFIG_NAME = "skevi-gate.json"
 CONFIG_KEYS = {
     "limits", "default_limit", "exempt_paths", "required", "skip_dirs",
-    "root_markdown",
+    "root_markdown", "plans",
 }
+# "plans" la consume scripts/check_plans.py (gate estructural de planes,
+# ADR-014): misma config, polaridad cerrada compartida — ausente = inactivo.
 
 
 def _resolve_project_path(value: object) -> Path | None:
