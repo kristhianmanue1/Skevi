@@ -25,9 +25,9 @@ saltarse F0 en un cambio estructural (ADR-009).
 
 | Clase | Disparadores observables | Obligaciones de la clase |
 |---|---|---|
-| Spike | Declaración firmada en la TAREA: pregunta escrita y criterio de respuesta | Salida = respuesta con EV-* (§6); sin SPEC; código en rama no fusionada o fuera del repo |
+| Spike | Declaración firmada en la TAREA: pregunta escrita y criterio de respuesta | Salida = respuesta con EV-* (§6); sin SPEC; sin plan (crear o extender uno escala a Architectural, ADR-013); código en rama no fusionada o fuera del repo |
 | Bounded | Toca sólo archivos de **producción** existentes en disco — producción es todo archivo excepto los que sólo ejecutan los comandos de test declarados del proyecto; los archivos de test nuevos no escalan la clase, o corregir un bug con su test reproductor sería siempre Architectural, peleando con §3.2 (ADR-012); sin dependencias nuevas; sin interfaz pública ni contrato nuevos; no activa ningún disparador de `04` §5.3 | El REQ que cubre, con su criterio (§4.1); EV-* (§6); la spec en la rama o PR; ADR sólo si cumple el criterio de `02` §3.1 |
-| Architectural | Cualquier condición de Bounded no cumplida | F0 completo: documento de §7 con REQ-*, no objetivos y preguntas cerradas |
+| Architectural | Cualquier condición de Bounded no cumplida — o el trabajo crea o extiende un plan de implementación, disparador de esta clase por sí mismo (ADR-013) | F0 completo: documento de §7 con REQ-*, no objetivos y preguntas cerradas |
 
 Reglas:
 
