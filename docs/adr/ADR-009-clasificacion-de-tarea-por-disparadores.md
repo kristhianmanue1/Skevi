@@ -1,7 +1,9 @@
 # ADR-009: Clasificación de tarea por disparadores observables, no calificativos
 
-Estado: aceptado; implementa A-1 de PROP-004. Los disparadores de rigor de
-Bounded **referencian** los de `04` §5.3 (ADR-008); no los reformulan.
+Estado: aceptado; disparador 1 de Bounded refinado por
+ADR-012 (hallazgo PF-1 del piloto-orbitanova); implementa A-1 de PROP-004.
+Los disparadores de rigor de Bounded **referencian** los de `04` §5.3
+(ADR-008); no los reformulan.
 
 Contexto: la guía F0→F3 asume proyecto nuevo — ítem `pospuesto` del manifiesto
 ("procedimiento de entrada para proyectos ya iniciados"). El trabajo real de

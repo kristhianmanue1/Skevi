@@ -13,6 +13,7 @@
 | ADR-009 | Clasificación de tarea por disparadores observables | Aceptado | `01-analisis-y-requerimientos.md` §2, `04` §1 | PROP-004 §2 A-1 | 2026-08-20 |
 | ADR-010 | Plan de implementación como artefacto de escala | Aceptado | `templates/plan-de-implementacion.md`, `03` §2, `04` §1 | PROP-004 §2 A-2 | 2026-08-20 |
 | ADR-011 | RED-GREEN-REFACTOR como default condicional de F3 | Aceptado | `04-ejecucion-y-verificacion.md` §3 | PROP-004 §2 A-3 | 2026-08-20 |
+| ADR-012 | Los archivos de test nuevos no escalan la clase de una tarea | Aceptado | `01-analisis-y-requerimientos.md` §2, ADR-009 (Estado) | `piloto-orbitanova.md` PF-1 | 2026-08-20 |
 
 **Reglas de este índice**
 
