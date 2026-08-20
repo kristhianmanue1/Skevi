@@ -45,30 +45,30 @@ configurar.
 
 ```text
 TAREA a4-t1
-  Consumes: REQ-1/2/3; skevi-gate.json (clave nueva `plans`, ADR-006)
-  Produce: tests/test_check_plans.py — ancla de regresión (RED primero)
+  Consumes: REQ-1/2/3; `skevi-gate.json` (clave nueva `plans`, ADR-006)
+  Produce: `tests/test_check_plans.py` — ancla de regresión (RED primero)
   Steps:
   - [x] Tests de estructura válida e inválida antes del script —
         verificación: `python3 -m unittest tests.test_check_plans` en rojo
         (ModuleNotFoundError: check_plans)
 TAREA a4-t2
-  Consumes: REQ-1/2/3; salida de t1 (tests en rojo)
-  Produce: scripts/check_plans.py (Python estándar, copiable, config compartida
-        con check_sizes vía skevi-gate.json clave `plans`)
+  Consumes: REQ-1/2/3; salida de t1 (`tests/test_check_plans.py` en rojo)
+  Produce: `scripts/check_plans.py` (Python estándar, copiable, config compartida
+        con check_sizes vía `skevi-gate.json` clave `plans`)
   Steps:
   - [x] Implementar parser y cinco reglas — verificación: suite nueva en
         verde; suite existente (39) sin cambios
   - [x] skevi-gate.json de skevi con plans activo — verificación: correr
         ambos gates sobre el repo → OK
 TAREA a4-t3
-  Consumes: REQ-4; este plan (docs/plans/2026-08-20-a4-gate-de-planes.md)
+  Consumes: REQ-4; este plan (`docs/plans/2026-08-20-a4-gate-de-planes.md`)
   Produce: corrida de evidencia sobre los dos planes reales + ADR-014 +
         manifiesto/índice/README/AGENTS actualizados
   Steps:
   - [x] Correr el verificador sobre este plan y sobre PLAN-0002 de
         orbitaNova — verificación: transcripción de ambas salidas (abajo)
-  - [ ] Ronda adversarial con contexto fresco — verificación: reporte con
-        decisión proceed o hallazgos corregidos
+  - [x] Ronda adversarial con contexto fresco — verificación: reporte con
+        decisión proceed o hallazgos corregidos (EV-t7)
 ```
 
 ## Evidencia de ejecución (transcripción)
@@ -76,21 +76,33 @@ TAREA a4-t3
 ```text
 EV-t1  python3 -m unittest tests.test_check_plans (antes del script) →
       Ran 11 tests — FAILED (errors=11): ModuleNotFoundError: No module
-      named 'check_plans' [pass: RED por la razón prescrita]
-EV-t2  python3 -m unittest discover -s tests → Ran 51 tests — OK
-      (12 nuevas + 39 existentes) [pass]
-EV-t3  python3 scripts/check_sizes.py → OK — 59 archivos [pass]
+      named 'check_plans' — la suite inicial tenía 11 tests; los 12 que
+      siguieron (tipo inválido de plans, prosa fuera de fence, dos puntos
+      en E4, contención/URLs, recrea, y main() vía subprocess) se añadió
+      la ronda adversarial, ya en GREEN — la suite final son 23
+      [pass: RED por la razón prescrita, suite final declarada]
+EV-t2  python3 -m unittest discover -s tests → Ran 62 tests — OK
+      (23 de check_plans + 39 de check_sizes) [pass]
+EV-t3  python3 scripts/check_sizes.py → OK — 60 archivos [pass]
 EV-t4  python3 scripts/check_plans.py →
       "BLOQ — step sin criterio de verificación (E4)" ×2 — hallazgo real
       del gate sobre ESTE plan: steps multilínea con «verificación:» en
       línea de continuación; parser corregido para agrupar steps →
       "OK — 1 plan(es) verificados (estructura E1-E5)" [pass: dogfooding]
 EV-t5  python3 scripts/check_plans.py /Users/krisnova/www/orbitaNova/
-      docs/proposals/PLAN-0002-agentmd-comandos.md → sin fallos (exit 0
-      junto a PLAN-0001 en la misma corrida) [pass]
+      docs/proposals/PLAN-0002-agentmd-comandos.md → sin fallos [pass]
 EV-t6  ídem con PLAN-0001-modo-dino-fps.md → "BLOQ — sin bloques TAREA
-      (regla E1)" — correcto y honesto: es un plan técnico de deliberación,
-      otro género; el gate estructura planes ejecutables (ADR-010) [pass]
+      en fences (regla E1)" — correcto y honesto: es un plan técnico de
+      deliberación, otro género; el gate estructura planes ejecutables
+      (ADR-010) [pass]
+EV-t7  Ronda adversarial (subagente, contexto fresco) → fix-and-retry:
+      1 BLOCKER (transcripción RED inexacta: 11 vs 12) + 1 HIGH (tipo
+      inválido de plans apagaba el gate) + 6 MED + 4 LOW — los 12
+      corregidos: fences, E4 con dos puntos, E5 en todo el bloque con
+      contención y URLs, argv con repo del archivo, exención \bcrea\w*\b,
+      tests de main() vía subprocess (--root), fallback de claves,
+      acoplamiento de adopción declarado, README [pass: correcciones
+      ancladas en tests/test_check_plans.py TestRonda20260820 y TestMainCli]
 ```
 
 **DoD del plan:** suites en verde (nueva + 39 existentes); ambos gates OK;
@@ -100,16 +112,22 @@ evidencia REQ-4 transcrita; ADR-014 con procedencia; ronda adversarial.
 
 | Regla | Qué comprueba | Qué NO comprueba (declarado) |
 |---|---|---|
-| E1 | ≥1 bloque `TAREA <id>` | Que las tareas sean las correctas |
+| E1 | ≥1 bloque `TAREA <id>` **dentro de un fence ```** — la prosa que mencione TAREA no se parsea | Que las tareas sean las correctas |
 | E2 | cada TAREA con `Consumes:`, `Produce:`, `Steps:` | Que Consumes apunten al artefacto *adecuado* |
 | E3 | cada TAREA ≥1 checkbox (`- [ ]`/`- [x]`) | Que los steps estén *hechos* de verdad |
-| E4 | cada step con `— verificación:` | Que el criterio de verificación *sea* verificable |
-| E5 | cada token con ruta y extensión en backticks, existente en el repo (salvo línea con "crea ") | Rutas sin backticks, extensiones desconocidas, semántica |
+| E4 | cada step con `verificación:` (con dos puntos, soporta steps multilínea) | Que el criterio de verificación *sea* verificable |
+| E5 | en todo el bloque TAREA: cada token con ruta y extensión conocida en backticks, existente y **contenida en el repo** (las que escapan fallan; URLs ignoradas; línea con crea/crear/creamos exenta) | Rutas sin backticks, extensiones desconocidas, URLs, semántica |
 
 **Regla E5 acotada y declarada:** sólo tokens backtickados con `/` y
 extensión conocida — "REQ-1/2/3" o "0002/0003/0006" no matchean (sin
-extensión). Es un ancla, no un notario: el límite está declarado aquí para
-que nadie confunda cobertura con cumplimiento.
+extensión); las URLs (`://`) quedan fuera por diseño. Es un ancla, no un
+notario: el límite está declarado aquí para que nadie confunda cobertura con
+cumplimiento.
+
+**Adopción:** activar `plans` exige copiar **dos** scripts actualizados
+(`check_plans.py` y `check_sizes.py` — la clave vive en el conjunto cerrado
+compartido); un `check_sizes` viejo rechaza la clave con BLOQ. El pre-push
+hook también corre ambos.
 
 ## Procedencia
 

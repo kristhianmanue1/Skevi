@@ -65,7 +65,7 @@ skevi/
 │   ├── check_sizes.py         # gate de estructura y tamaños
 │   ├── check_plans.py         # gate estructural de planes (ADR-014)
 │   └── hooks/                 # hooks de Git (pre-push)
-└── tests/                     # suite sobre scripts/check_sizes.py
+└── tests/                     # suites de scripts/ (check_sizes, check_plans)
 ```
 
 La separación no es estética: cada carpeta tiene una **vida útil distinta**.
@@ -110,8 +110,8 @@ nada. `OK` o `BLOQ` con código de salida distinto de cero.
 python3 -m unittest discover -s tests
 ```
 
-Corre la suite de `tests/` sobre `scripts/check_sizes.py` — el único
-artefacto ejecutable del proyecto.
+Corre las suites de `tests/` sobre los scripts del proyecto — sus dos
+artefactos ejecutables: `check_sizes.py` y `check_plans.py` (ADR-014).
 
 **Gate local, no GitHub Actions.** La cuenta que aloja este repositorio tiene
 minutos de CI limitados (se agotan rápido y se reinician mensualmente). Por
