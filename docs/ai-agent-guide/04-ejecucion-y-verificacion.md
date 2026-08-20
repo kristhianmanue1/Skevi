@@ -11,16 +11,25 @@ Antes de tocar código, fija la tarea en curso:
 ```text
 TAREA <id>
 Objetivo: <un solo resultado, cubre SPEC-<n> o REQ-<n>>
+Clase: <Spike | Bounded | Architectural> — según los disparadores de 01 §2
 Base: <commit o rama de partida>
+Plan: <ruta del plan de implementación, sólo si existe — ver abajo>
 Permitido: <archivos/operaciones concretas>
 Prohibido: <lo que no se toca; por defecto: push, merge, release, deps nuevas>
-DoD: <checks ejecutables que deben pasar>
+DoD: <checks ejecutables — o "ver PLAN <ruta>" si la tarea pertenece a un plan>
 Parada: <condición inequívoca para detenerse>
 ```
 
 Reglas:
 
 - Una tarea = un objetivo. Si aparece un segundo objetivo, es otra tarea.
+- La clase sale de los disparadores observables de `01` §2 (ADR-009), no de
+  un calificativo. Si a mitad de tarea se descubre complejidad, la clase
+  sube — ratchet — y la TAREA se re-fija antes de seguir.
+- Si la tarea es parte de un plan de implementación (ADR-010), la TAREA lo
+  referencia y **el plan es dueño de los criterios** (DoD, steps): nunca dos
+  documentos con criterios de aceptación paralelos. Una tarea sola no lleva
+  plan; el plan existe sólo a partir de trabajo multi-tarea.
 - Lo no listado en "Permitido" está prohibido. La autoridad se concede por
   operación: editar no implica commit; commit no implica push.
 - La condición de parada es obligatoria aunque parezca obvia: es lo que te
@@ -45,6 +54,16 @@ Reglas:
 
 - Los casos DADO/CUANDO/ENTONCES de las specs se convierten en tests. Esa es
   la trazabilidad: SPEC → test → evidencia.
+- Si el proyecto tiene infraestructura de tests, todo cambio de comportamiento
+  sigue RED-GREEN-REFACTOR (ADR-011): (1) RED — escribe primero el test que
+  falla y verifica que falla por la razón correcta; (2) GREEN — el código
+  mínimo que lo pasa; (3) REFACTOR — limpieza con la suite en verde. El
+  reporte de la tarea incluye la **salida del RED** como evidencia: si no
+  viste fallar el test, no sabes si prueba lo correcto. La regla hereda la
+  condicionalidad del estándar §3.2 — aplicar donde exista infraestructura
+  de tests; crearla para un cambio acotado es decisión del contrato de tarea,
+  no obligación silenciosa. Excepciones declaradas en la TAREA: throwaway
+  (Spike), código generado, configuración.
 - Un bug se corrige con un test que falla antes del fix y pasa después.
 - Ejecuta primero los tests focales del cambio, después la suite. Ambos
   resultados entran en la evidencia.
@@ -163,6 +182,7 @@ Al cerrar una tarea, reporta así:
 ```text
 TAREA <id>: <OK | PARCIAL | BLOQ>
 DoD: <cumplido / qué falta>
+RED: <salida del test en rojo — o por qué no aplica (ADR-011)>
 Rama de este cierre: <nombre> | main (si main, justifícalo — ver §4.1
   del estándar: "sin remoto" no es justificación válida por sí sola)
 Evidencia:
@@ -203,6 +223,7 @@ para "dejarlo limpio".
 
 - [ ] contrato de tarea fijado y respetado;
 - [ ] tests focales y suite en verde, con evidencia;
+- [ ] salida del RED reportada, o su no-aplicación justificada (ADR-011);
 - [ ] diff mínimo, leído completo, sin sorpresas;
 - [ ] docs y comentarios coherentes con el código;
 - [ ] si la tarea toca un componente con CONTRATO (02 §4), cada campo de

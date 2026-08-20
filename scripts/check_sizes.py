@@ -30,6 +30,7 @@ REQUIRED = {
     "docs/ai-agent-guide/04-ejecucion-y-verificacion.md",
     "scripts/check_sizes.py",
     "templates/registro-contexto.md",
+    "templates/plan-de-implementacion.md",
     "templates/skevi/usage-guide.md",
     "templates/skevi/architecture-overview.md",
 }

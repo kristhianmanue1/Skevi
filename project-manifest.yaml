@@ -13,6 +13,8 @@ ofrece:
   - contención de tamaño de archivos con polaridad cerrada y exenciones declaradas
   - gate local en Python estándar, sin dependencias ni CI remoto
   - plantillas de adopción instalables como `.skevi/` en el proyecto consumidor
+  - clasificación de tarea (spike/bounded/architectural) por disparadores observables, para entrar a repos existentes
+  - plantilla de plan de implementación multi-tarea, subordinada al contrato de tarea
   - registro histórico de pilotos con procedencia de cada regla
 
 no_ofrece:
@@ -47,7 +49,7 @@ fronteras_de_confianza:
   - toda operación destructiva o con efecto fuera del entorno local exige autorización previa y específica
 
 pospuesto:
-  - procedimiento de entrada para proyectos ya iniciados; hoy la guía asume proyecto nuevo
-  - capa de métodos de desarrollo adaptados a agentes, separada del estándar atemporal
+  - "piloto del procedimiento de entrada para proyectos ya iniciados; la clasificación de tarea existe (ADR-009) pero no corrió sobre un proyecto real"
+  - "resto de la capa de métodos adaptados a agentes: gate de planes diferido (A-4 de PROP-004) y generalización de plan/TDD tras el piloto"
   - perfiles por herramienta más allá de GitHub
   - clasificación de sensibilidad de datos

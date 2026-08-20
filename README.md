@@ -53,6 +53,7 @@ skevi/
 │       └── supervision-agente-externo.md
 ├── templates/                 # formatos copiables, no se improvisan (§3.5)
 │   ├── registro-contexto.md
+│   ├── plan-de-implementacion.md
 │   └── skevi/
 │       ├── usage-guide.md
 │       └── architecture-overview.md

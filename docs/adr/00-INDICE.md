@@ -10,6 +10,9 @@
 | ADR-006 | Gate configurable por proyecto adoptante | Aceptado | `scripts/check_sizes.py` | PROP-002 §A-6 | 2026-08-15 |
 | ADR-007 | Validar en la frontera implica fallar controlado | Aceptado | `estandar-diseno-software-github.md` §2.4 | `an-kla-memory` #84 | 2026-08-16 |
 | ADR-008 | Disparadores objetivos de rigor | Aceptado | `AGENTS.md`, `04-ejecucion-y-verificacion.md` | PROP-002 §A-8 | 2026-08-15 |
+| ADR-009 | Clasificación de tarea por disparadores observables | Aceptado | `01-analisis-y-requerimientos.md` §2, `04` §1 | PROP-004 §2 A-1 | 2026-08-20 |
+| ADR-010 | Plan de implementación como artefacto de escala | Aceptado | `templates/plan-de-implementacion.md`, `03` §2, `04` §1 | PROP-004 §2 A-2 | 2026-08-20 |
+| ADR-011 | RED-GREEN-REFACTOR como default condicional de F3 | Aceptado | `04-ejecucion-y-verificacion.md` §3 | PROP-004 §2 A-3 | 2026-08-20 |
 
 **Reglas de este índice**
 

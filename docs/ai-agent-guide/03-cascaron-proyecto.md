@@ -43,7 +43,8 @@ Reglas:
 - `.gitignore` completo **antes del primer commit**. Un secreto o un build
   en el historial exige revocación y limpieza, no un commit de arreglo.
 - Si F1 produjo specs/ADRs/contratos, viven en `docs/` con nombres
-  estables: `docs/specs/`, `docs/adr/ADR-001-<titulo>.md`.
+  estables: `docs/specs/`, `docs/adr/ADR-001-<titulo>.md`. Los planes de
+  implementación multi-tarea (ADR-010) viven en `docs/plans/`.
 - Si el proyecto recibirá trabajo de agentes, añade `AGENTS.md` (y `CLAUDE.md`
   si la herramienta lo usa) en raíz con: comandos de build/test,
   convenciones, y lo que está prohibido. Manténlo actualizado cuando cambie
