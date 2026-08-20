@@ -12,6 +12,7 @@ ofrece:
   - reglas de rigor derivadas de disparadores observables, no de calificadores subjetivos
   - contención de tamaño de archivos con polaridad cerrada y exenciones declaradas
   - gate local en Python estándar, sin dependencias ni CI remoto
+  - gate opcional de planes de implementación con chequeo estructural (E1-E5), fail-closed, copiable sin edición
   - plantillas de adopción instalables como `.skevi/` en el proyecto consumidor
   - clasificación de tarea (spike/bounded/architectural) por disparadores observables, para entrar a repos existentes
   - plantilla de plan de implementación multi-tarea, subordinada al contrato de tarea
@@ -49,7 +50,6 @@ fronteras_de_confianza:
   - toda operación destructiva o con efecto fuera del entorno local exige autorización previa y específica
 
 pospuesto:
-  - "piloto F0→F3 completo sobre un proyecto real (lo que el README exige para salir de Alpha; F2 asume cascarón desde cero); la clasificación, el plan y la clase Architectural sí corrieron sobre un repo existente real (piloto-orbitanova y piloto-orbitanova-2)"
-  - "evaluación de A-4 (gate de planes, chequeo estructural): condición de reactivación cumplida — existe un plan real ejecutado con evidencia (PLAN-0002 de orbitaNova, PR #11); falta diseñarla y ejecutarla"
+  - "piloto F0→F3 completo sobre un proyecto real (lo que el README exige para salir de Alpha; F2 asume cascarón desde cero); la clasificación, el plan, la clase Architectural y el gate de planes (A-4) sí corrieron sobre repos reales"
   - perfiles por herramienta más allá de GitHub
   - clasificación de sensibilidad de datos

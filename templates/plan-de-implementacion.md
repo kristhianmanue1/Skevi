@@ -38,4 +38,6 @@ Reglas:
   la TAREA N", prosa sin criterio de verificación.
 - Límite: 300 líneas como plantilla derivada (estándar §3.4). Si excede, se
   parte en sub-planes vinculados desde este encabezado.
-- Hogar: `docs/plans/` o el equivalente declarado por el proyecto adoptante.
+- Hogar: `docs/plans/` o el equivalente declarado por el proyecto adoptante;
+  si el adoptante activa la clave `plans` en `skevi-gate.json`, este formato
+  es el que `scripts/check_plans.py` verifica (ADR-014).

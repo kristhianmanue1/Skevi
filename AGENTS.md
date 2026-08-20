@@ -61,15 +61,18 @@ internos pueden apuntar a repositorios ajenos y no resolver aquí.
 
 ```bash
 python3 scripts/check_sizes.py
+python3 scripts/check_plans.py
 ```
 
-Salida `OK` con el conteo de archivos verificados, o `BLOQ` enumerando cada
-incumplimiento con código de salida distinto de cero. Ejecútalo antes de
-declarar terminado cualquier cambio y registra su salida como evidencia.
+`check_sizes` comprueba archivos canónicos y tamaños; `check_plans` (ADR-014)
+verifica estructura de los planes de `docs/plans/` (E1–E5), fail-closed vía
+la clave `plans` de `skevi-gate.json`. Salida `OK` o `BLOQ` con código de
+salida distinto de cero. Ejecútalos antes de declarar terminado cualquier
+cambio y registra su salida como evidencia.
 
 Si tu cambio toca `scripts/`, corre además `python3 -m unittest discover -s
 tests` y registra su salida. Todo script del repo con lógica no trivial
-lleva su test en `tests/`.
+lleva su test en `tests/` (`check_sizes`, `check_plans`).
 
 ## Convenciones de edición
 

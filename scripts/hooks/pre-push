@@ -5,4 +5,5 @@ set -e
 
 repo_root="$(git rev-parse --show-toplevel)"
 python3 "$repo_root/scripts/check_sizes.py"
+python3 "$repo_root/scripts/check_plans.py"
 python3 -m unittest discover -s "$repo_root/tests"
