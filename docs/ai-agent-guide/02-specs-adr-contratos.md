@@ -64,8 +64,6 @@ Consecuencias: <qué gana y qué pierde; qué queda prohibido u obligado>
 
 Reglas:
 
-Reglas:
-
 - Los ADR son inmutables: si la decisión cambia, se crea uno nuevo que
   sustituye al anterior.
 - Una alternativa sin razón de descarte no cuenta; si no hay alternativas
@@ -92,12 +90,7 @@ Checklist de cierre (obligatorio para ADRs que modifican norma o guía):
       `docs/history/` en el mismo cambio.
 
 Un ADR sin cierre completo no cierra el gate de F1: la decisión existe, pero
-el rastro no.
-  sustituye al anterior.
-- Una alternativa sin razón de descarte no cuenta; si no hay alternativas
-  reales, no había decisión que registrar.
-- Criterio de desempate (del estándar): más simple → más reversible → menor
-  superficie de seguridad → sin dependencias nuevas.
+  el rastro no.
 
 ## 4. Contratos de interfaz
 
