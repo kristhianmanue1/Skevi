@@ -37,6 +37,8 @@ skevi/
 │   ├── orchestration/                        # método concreto, acoplado a herramientas
 │   │   ├── orquestacion-codex-opencode-tmux.md
 │   │   └── orquestacion-codex-opencode-tmux-runbook.md
+│   ├── plans/                                # planes de implementación (ADR-010)
+│   │   └── 2026-08-20-a4-gate-de-planes.md
 │   ├── proposals/                           # cambios bajo deliberación, no normativos
 │   └── history/                            # registro, no normativo
 │       ├── PROP-001-agent-native-model-improvements.md
@@ -61,6 +63,7 @@ skevi/
 │       └── architecture-overview.md
 ├── scripts/
 │   ├── check_sizes.py         # gate de estructura y tamaños
+│   ├── check_plans.py         # gate estructural de planes (ADR-014)
 │   └── hooks/                 # hooks de Git (pre-push)
 └── tests/                     # suite sobre scripts/check_sizes.py
 ```
@@ -92,11 +95,16 @@ modificación (ADR-006).
 
 ```bash
 python3 scripts/check_sizes.py
+python3 scripts/check_plans.py
 ```
 
-Comprueba que existen los archivos canónicos, que no hay Markdown operativo
-suelto en la raíz y que ningún archivo de texto excede su límite. `OK` o
-`BLOQ` con código de salida distinto de cero.
+`check_sizes` comprueba que existen los archivos canónicos, que no hay
+Markdown operativo suelto en la raíz y que ningún archivo de texto excede su
+límite. `check_plans` verifica la estructura de los planes de implementación
+de `docs/plans/` (ADR-014) — cada tarea con Consumes/Produce/Steps, cada step
+con criterio de verificación, cada ruta referenciada existente —; es
+opcional y fail-closed: sin clave `plans` en `skevi-gate.json`, no comprueba
+nada. `OK` o `BLOQ` con código de salida distinto de cero.
 
 ```bash
 python3 -m unittest discover -s tests
