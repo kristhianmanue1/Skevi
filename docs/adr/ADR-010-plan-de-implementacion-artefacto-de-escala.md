@@ -1,7 +1,8 @@
 # ADR-010: El plan de implementación es un artefacto de escala, subordinado a la TAREA
 
-Estado: aceptado; implementa A-2 de PROP-004. No reemplaza ni duplica el
-contrato de tarea de `04` §1.
+Estado: aceptado; desde ADR-013, crear o extender un plan es disparador de
+clase Architectural. No reemplaza ni duplica el contrato de tarea de `04`
+§1.
 
 Contexto: la TAREA individual sostiene una tarea, pero cuando el trabajo cruza
 múltiples tareas, sesiones o agentes, nada conserva coherencia entre ellas. La

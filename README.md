@@ -50,6 +50,7 @@ skevi/
 │       ├── orquestacion-codex-opencode-tmux-adversarial.md
 │       ├── piloto-autoaplicacion-skevi.md
 │       ├── piloto-orbitanova.md
+│       ├── piloto-orbitanova-2.md
 │       ├── piloto-skopos.md
 │       └── supervision-agente-externo.md
 ├── templates/                 # formatos copiables, no se improvisan (§3.5)
